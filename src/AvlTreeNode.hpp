@@ -6,21 +6,22 @@ namespace coursework
     template <typename T>
     struct Node
     {
-        T value_;
+        T key_;
 
         Node* parent_;
         Node* left_;
         Node* right_;
 
         int factor_;
-        Node(const T& value, Node* parent = nullptr,
+
+        Node(const T& key, Node* parent = nullptr,
                              Node* left = nullptr,
                              Node* right = nullptr);
     };
 
     template<typename  T>
-    Node<T>::Node(const T& value, Node* parent, Node* left, Node* right):
-        value_(value),
+    Node<T>::Node(const T& key, Node* parent, Node* left, Node* right):
+        key_(key),
         parent_(parent),
         left_(left),
         right_(right),
