@@ -41,4 +41,5 @@ namespace coursework
         explicit AvlTreeIterator(Node<T>* node);
     };
 }
+
 #endif // AVL_TREE_ITERATOR_HPP

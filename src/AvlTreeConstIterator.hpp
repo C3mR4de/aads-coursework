@@ -38,5 +38,6 @@ namespace coursework
         explicit AvlTreeConstIterator(Node<T>* node);
     };
 }
+
 #endif // AVL_TREE_CONST_ITERATOR_HPP
 
