@@ -10,10 +10,12 @@ namespace coursework
 
         AvlTree();
         AvlTree(const AvlTree& other) = delete;
-        AvlTree(AvlTree&& other);
+        AvlTree(AvlTree&& other) noexcept;
 
         AvlTree& operator=(const AvlTree& other) = delete;
-        AvlTree& operator=(AvlTree&& other);
+        AvlTree& operator=(AvlTree&& other) noexcept;
+
+        ~AvlTree() noexcept;
 
     private:
     };
