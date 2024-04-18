@@ -3,30 +3,33 @@
 
 namespace coursework
 {
-    template <typename T>
-    struct Node
+    namespace detail
     {
-        T key_;
+        template <typename T>
+        struct AvlTreeNode
+        {
+            T key_;
 
-        Node* parent_;
-        Node* left_;
-        Node* right_;
+            AvlTreeNode* parent_;
+            AvlTreeNode* left_;
+            AvlTreeNode* right_;
 
-        int factor_;
+            int factor_;
 
-        Node(const T& key, Node* parent = nullptr,
-                             Node* left = nullptr,
-                             Node* right = nullptr);
-    };
+            AvlTreeNode(const T& key, AvlTreeNode* parent = nullptr,
+                                AvlTreeNode* left = nullptr,
+                                AvlTreeNode* right = nullptr);
+        };
 
-    template<typename  T>
-    Node<T>::Node(const T& key, Node* parent, Node* left, Node* right):
-        key_(key),
-        parent_(parent),
-        left_(left),
-        right_(right),
-        factor_(0)
-    {}
+        template<typename  T>
+        AvlTreeNode<T>::AvlTreeNode(const T& key, AvlTreeNode* parent, AvlTreeNode* left, AvlTreeNode* right):
+            key_(key),
+            parent_(parent),
+            left_(left),
+            right_(right),
+            factor_(0)
+        {}
+    }
 }
 
 #endif

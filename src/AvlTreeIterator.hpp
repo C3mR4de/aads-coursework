@@ -37,9 +37,9 @@ namespace coursework
 
     private:
 
-        const Node<T>* root_;
-        Node<T>* node_;
-        explicit AvlTreeIterator(Node<T>* node);
+        const detail::AvlTreeNode<T>* root_;
+        detail::AvlTreeNode<T>* node_;
+        explicit AvlTreeIterator(detail::AvlTreeNode<T>* node);
     };
 }
 
@@ -50,7 +50,7 @@ coursework::AvlTreeIterator<T>::AvlTreeIterator():
 {}
 
 template <typename T>
-coursework::AvlTreeIterator<T>::AvlTreeIterator(Node<T>* node):
+coursework::AvlTreeIterator<T>::AvlTreeIterator(detail::AvlTreeNode<T>* node):
     root_(node),
     node_(node)
 {
