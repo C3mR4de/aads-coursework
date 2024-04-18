@@ -16,14 +16,14 @@ namespace coursework
         using ConstIterator = AvlTreeIterator<T>;
 
         AvlTree();
-        AvlTree(const AvlTree& other) = delete;
-        AvlTree(AvlTree&& other) noexcept;
-        AvlTree(std::initializer_list<T> init);
+        AvlTree(const AvlTree& rhs) = delete;
+        AvlTree(AvlTree&& rhs) noexcept;
+        AvlTree(std::initializer_list<T> rhs);
         template <typename InputIterator>
         AvlTree(InputIterator begin, InputIterator end);
 
-        AvlTree& operator=(const AvlTree& other) = delete;
-        AvlTree& operator=(AvlTree&& other) noexcept;
+        AvlTree& operator=(const AvlTree& rhs) = delete;
+        AvlTree& operator=(AvlTree&& rhs) noexcept;
 
         ~AvlTree() noexcept;
 
@@ -43,7 +43,7 @@ namespace coursework
 
     private:
 
-        void clear(detail::AvlTreeNode<T>* node);
+        void clear(detail::AvlTreeNode<T>* rhs);
         void leftRotate();
         void rightRotate();
 
@@ -63,12 +63,12 @@ coursework::AvlTree<T>::~AvlTree() noexcept
 }
 
 template <typename T>
-void coursework::AvlTree<T>::clear(coursework::detail::AvlTreeNode<T>* node)
+void coursework::AvlTree<T>::clear(coursework::detail::AvlTreeNode<T>* rhs)
 {
-    if (node != nullptr)
+    if (rhs != nullptr)
     {
-        clear(node->left_);
-        clear(node->right_);
+        clear(rhs->left_);
+        clear(rhs->right_);
     }
 }
 

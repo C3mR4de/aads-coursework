@@ -32,8 +32,8 @@ namespace coursework
         T& operator->();
         const T& operator->() const;
 
-        bool operator==(const AvlTreeIterator& other) const;
-        bool operator!=(const AvlTreeIterator& other) const;
+        bool operator==(const AvlTreeIterator& rhs) const;
+        bool operator!=(const AvlTreeIterator& rhs) const;
 
     private:
 
@@ -119,15 +119,15 @@ const T& coursework::AvlTreeIterator<T>::operator->() const
 }
 
 template <typename T>
-bool coursework::AvlTreeIterator<T>::operator==(const AvlTreeIterator& other) const
+bool coursework::AvlTreeIterator<T>::operator==(const AvlTreeIterator& rhs) const
 {
-    return root_ == other.root_ && node_ == other.node_;
+    return root_ == rhs.root_ && node_ == rhs.node_;
 }
 
 template <typename T>
-bool coursework::AvlTreeIterator<T>::operator!=(const AvlTreeIterator& other) const
+bool coursework::AvlTreeIterator<T>::operator!=(const AvlTreeIterator& rhs) const
 {
-    return !(*this == other);
+    return !(*this == rhs);
 }
 
 #endif // AVL_TREE_ITERATOR_HPP

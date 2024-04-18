@@ -36,7 +36,7 @@ namespace coursework
 
         const detail::AvlTreeNode<T>* root_;
         const detail::AvlTreeNode<T>* node_;
-        explicit AvlTreeConstIterator(const detail::AvlTreeNode<T>* node);
+        explicit AvlTreeConstIterator(const detail::AvlTreeNode<T>* rhs);
     };
 }
 
@@ -47,9 +47,9 @@ coursework::AvlTreeConstIterator<T>::AvlTreeConstIterator():
 {}
 
 template <typename T>
-coursework::AvlTreeConstIterator<T>::AvlTreeConstIterator(const detail::AvlTreeNode<T>* node):
-    root_(node),
-    node_(node)
+coursework::AvlTreeConstIterator<T>::AvlTreeConstIterator(const detail::AvlTreeNode<T>* rhs):
+    root_(rhs),
+    node_(rhs)
 {
     while (root_->parent_ != nullptr)
     {
@@ -104,15 +104,15 @@ const T& coursework::AvlTreeConstIterator<T>::operator->() const
 }
 
 template <typename T>
-bool coursework::AvlTreeConstIterator<T>::operator==(const AvlTreeConstIterator& other) const
+bool coursework::AvlTreeConstIterator<T>::operator==(const AvlTreeConstIterator& rhs) const
 {
-    return root_ == other.root_ && node_ == other.node_;
+    return root_ == rhs.root_ && node_ == rhs.node_;
 }
 
 template <typename T>
-bool coursework::AvlTreeConstIterator<T>::operator!=(const AvlTreeConstIterator& other) const
+bool coursework::AvlTreeConstIterator<T>::operator!=(const AvlTreeConstIterator& rhs) const
 {
-    return !(*this == other);
+    return !(*this == rhs);
 }
 
 #endif // AVL_TREE_CONST_ITERATOR_HPP
