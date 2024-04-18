@@ -41,6 +41,8 @@ namespace coursework
         ConstIterator crbegin() const;
         ConstIterator crend() const;
 
+        Iterator insert(const T& rhs);
+
     private:
 
         void clear(detail::AvlTreeNode<T>* rhs);
@@ -69,7 +71,14 @@ void coursework::AvlTree<T>::clear(coursework::detail::AvlTreeNode<T>* rhs)
     {
         clear(rhs->left_);
         clear(rhs->right_);
+        delete rhs;
     }
+}
+
+template <typename T>
+typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::insert(const T& rhs)
+{
+    return begin();
 }
 
 #endif // AVL_TREE_HPP
