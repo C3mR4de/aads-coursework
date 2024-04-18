@@ -127,7 +127,7 @@ bool coursework::AvlTreeIterator<T>::operator==(const AvlTreeIterator& other) co
 template <typename T>
 bool coursework::AvlTreeIterator<T>::operator!=(const AvlTreeIterator& other) const
 {
-    return root_ != other.root_ || node_ != other.node_;
+    return !(*this == other);
 }
 
 #endif // AVL_TREE_ITERATOR_HPP
