@@ -3,6 +3,7 @@
 
 #include <initializer_list>
 #include "AvlTreeIterator.hpp"
+#include "AvlTreeNode.hpp"
 
 namespace coursework
 {
@@ -42,12 +43,33 @@ namespace coursework
 
     private:
 
-        void clear();
+        void clear(detail::AvlTreeNode<T>* node);
         void leftRotate();
         void rightRotate();
 
         detail::AvlTreeNode<T>* root_;
     };
+}
+
+template <typename T>
+coursework::AvlTree<T>::AvlTree():
+    root_(nullptr)
+{}
+
+template <typename T>
+coursework::AvlTree<T>::~AvlTree() noexcept
+{
+    clear(root_);
+}
+
+template <typename T>
+void coursework::AvlTree<T>::clear(coursework::detail::AvlTreeNode<T>* node)
+{
+    if (node != nullptr)
+    {
+        clear(node->left_);
+        clear(node->right_);
+    }
 }
 
 #endif // AVL_TREE_HPP

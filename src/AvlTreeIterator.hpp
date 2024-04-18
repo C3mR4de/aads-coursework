@@ -109,13 +109,13 @@ const T& coursework::AvlTreeIterator<T>::operator*() const
 template <typename T>
 T& coursework::AvlTreeIterator<T>::operator->()
 {
-    return node_->key;
+    return node_->key_;
 }
 
 template <typename T>
 const T& coursework::AvlTreeIterator<T>::operator->() const
 {
-    return node_->key;
+    return node_->key_;
 }
 
 template <typename T>
