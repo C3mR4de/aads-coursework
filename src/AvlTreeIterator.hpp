@@ -89,7 +89,7 @@ coursework::AvlTreeIterator<T>& coursework::AvlTreeIterator<T>::operator++()
 template <typename T>
 coursework::AvlTreeIterator<T>& coursework::AvlTreeIterator<T>::operator++(int)
 {
-    Node<T>* temp = AvlTreeIterator<T>(*this);
+    detail::AvlTreeNode<T>* temp = AvlTreeIterator<T>(*this);
     operator++();
     return temp;
 }

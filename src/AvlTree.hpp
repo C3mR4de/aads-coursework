@@ -46,7 +46,7 @@ namespace coursework
         void leftRotate();
         void rightRotate();
 
-        Node<T>* root_;
+        detail::AvlTreeNode<T>* root_;
     };
 }
 
