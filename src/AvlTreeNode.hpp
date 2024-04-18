@@ -17,8 +17,8 @@ namespace coursework
             int factor_;
 
             AvlTreeNode(const T& key, AvlTreeNode* parent = nullptr,
-                                AvlTreeNode* left = nullptr,
-                                AvlTreeNode* right = nullptr);
+                                      AvlTreeNode* left = nullptr,
+                                      AvlTreeNode* right = nullptr);
         };
 
         template<typename  T>
