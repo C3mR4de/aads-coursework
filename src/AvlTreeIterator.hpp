@@ -63,7 +63,7 @@ coursework::AvlTreeIterator<T>::AvlTreeIterator(detail::AvlTreeNode<T>* node):
 template <typename T>
 coursework::AvlTreeIterator<T>& coursework::AvlTreeIterator<T>::operator++()
 {
-    Node<T>* curr = this;
+    detail::AvlTreeNode<T>* curr = this;
 
     while (curr->right_ == nullptr || curr->key_ < root_->key_)
     {
