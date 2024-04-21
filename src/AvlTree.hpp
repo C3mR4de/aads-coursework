@@ -13,7 +13,7 @@ namespace coursework
     public:
 
         using Iterator = AvlTreeIterator<T>;
-        using ConstIterator = AvlTreeIterator<T>;
+        using ConstIterator = const AvlTreeIterator<T>;
 
         AvlTree();
         AvlTree(const AvlTree& rhs) = delete;
@@ -65,6 +65,57 @@ coursework::AvlTree<T>::~AvlTree() noexcept
 }
 
 template <typename T>
+typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::begin()
+{
+    detail::AvlTreeNode<T>* res = root_;
+
+    while (res->left_ != nullptr)
+    {
+        res = res->left_;
+    }
+
+    return Iterator(root_, res);
+}
+
+template <typename T>
+typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::end()
+{
+    return Iterator(root_, nullptr);
+}
+
+template <typename T>
+typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::insert(const T& rhs)
+{
+    using namespace detail;
+    using Node = AvlTreeNode<T>;
+
+    if (root_ == nullptr)
+    {
+        root_ = new Node(rhs);
+        return Iterator(root_, root_);
+    }
+
+    Node* curr = root_;
+    Node* prev = nullptr;
+
+    while (curr != nullptr && rhs != curr->key_)
+    {
+        prev = curr;
+        curr = rhs < curr->key_ ? curr->left_ : curr->right_;
+    }
+
+    if (curr != nullptr)
+    {
+        return end();
+    }
+
+    curr = new Node(rhs, prev);
+    (rhs < curr->parent_->key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
+
+    return Iterator(root_, curr);
+}
+
+template <typename T>
 void coursework::AvlTree<T>::clear(coursework::detail::AvlTreeNode<T>* rhs)
 {
     if (rhs != nullptr)
@@ -73,12 +124,6 @@ void coursework::AvlTree<T>::clear(coursework::detail::AvlTreeNode<T>* rhs)
         clear(rhs->right_);
         delete rhs;
     }
-}
-
-template <typename T>
-typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::insert(const T& rhs)
-{
-    return begin();
 }
 
 #endif // AVL_TREE_HPP
