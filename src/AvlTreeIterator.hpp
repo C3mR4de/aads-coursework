@@ -21,10 +21,11 @@ namespace coursework
         ~AvlTreeIterator() = default;
 
         AvlTreeIterator& operator=(const AvlTreeIterator&) = default;
+
         AvlTreeIterator& operator++();
-        AvlTreeIterator& operator++(int);
+        AvlTreeIterator operator++(int);
         AvlTreeIterator& operator--();
-        AvlTreeIterator& operator--(int);
+        AvlTreeIterator operator--(int);
 
         T& operator*();
         const T& operator*() const;
@@ -37,9 +38,9 @@ namespace coursework
 
     private:
 
-        const detail::AvlTreeNode<T>* root_;
+        detail::AvlTreeNode<T>* root_;
         detail::AvlTreeNode<T>* node_;
-        explicit AvlTreeIterator(detail::AvlTreeNode<T>* node);
+        explicit AvlTreeIterator(detail::AvlTreeNode<T>* root, detail::AvlTreeNode<T>* node);
     };
 }
 
@@ -50,47 +51,49 @@ coursework::AvlTreeIterator<T>::AvlTreeIterator():
 {}
 
 template <typename T>
-coursework::AvlTreeIterator<T>::AvlTreeIterator(detail::AvlTreeNode<T>* node):
-    root_(node),
+coursework::AvlTreeIterator<T>::AvlTreeIterator(detail::AvlTreeNode<T>* root, detail::AvlTreeNode<T>* node):
+    root_(root),
     node_(node)
-{
-    while (root_->parent_ != nullptr)
-    {
-        root_ = root_->parent_;
-    }
-}
+{}
 
 template <typename T>
 coursework::AvlTreeIterator<T>& coursework::AvlTreeIterator<T>::operator++()
 {
-    detail::AvlTreeNode<T>* curr = this;
+    detail::AvlTreeNode<T>* curr = node_;
 
-    while (curr->right_ == nullptr || curr->key_ < root_->key_)
+    while (curr->right_ == nullptr || curr->key_ < node_->key_)
     {
-        if (curr == root_ && (root_->right_ == nullptr || curr->key_ < root_->key_))
+        if (curr == root_ && (root_->right_ == nullptr || curr->key_ < node_->key_))
         {
-            return nullptr;
+            node_ = nullptr;
+            return *this;
         }
 
         curr = curr->parent_;
 
-        if (curr->key_ > root_->key_)
+        if (curr->key_ > node_->key_)
         {
-            return curr;
+            node_ = curr;
+            return *this;
         }
     }
 
     curr = curr->right_;
-    curr = curr->begin();
 
-    return curr;
+    while (curr->left_ != nullptr)
+    {
+        curr = curr->left_;
+    }
+
+    node_ = curr;
+    return *this;
 }
 
 template <typename T>
-coursework::AvlTreeIterator<T>& coursework::AvlTreeIterator<T>::operator++(int)
+coursework::AvlTreeIterator<T> coursework::AvlTreeIterator<T>::operator++(int)
 {
-    detail::AvlTreeNode<T>* temp = AvlTreeIterator<T>(*this);
-    operator++();
+    AvlTreeIterator<T> temp(*this);
+    ++(*this);
     return temp;
 }
 
