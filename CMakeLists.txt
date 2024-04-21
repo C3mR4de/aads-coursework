@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(aads-coursework VERSION 1.0)
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS_DEBUG_INIT "-O0 -ggdb -sanitize=undefined")
+set(CMAKE_CXX_FLAGS_RELEASE_INIT "-02 -march=native")
 add_executable(${PROJECT_NAME} src/main.cpp)
