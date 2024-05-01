@@ -13,7 +13,7 @@ namespace coursework
     public:
 
         using Iterator = AvlTreeIterator<T>;
-        using ConstIterator = const AvlTreeIterator<T>;
+        using ConstIterator = AvlTreeIterator<const T>;
 
         AvlTree();
         AvlTree(const AvlTree& rhs) = delete;
