@@ -10,6 +10,10 @@ int main()
     tree.insert(-1000);
     tree.insert(9);
     tree.insert(8);
+    tree.insert(10);
+    tree.insert(13);
+    tree.insert(199);
+
 
     for (const auto& i : tree)
     {
