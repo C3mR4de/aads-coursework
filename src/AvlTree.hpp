@@ -2,6 +2,7 @@
 #define AVL_TREE_HPP
 
 #include <initializer_list>
+#include <utility>
 #include "AvlTreeIterator.hpp"
 #include "AvlTreeNode.hpp"
 
@@ -41,14 +42,11 @@ namespace coursework
         ConstIterator crbegin() const;
         ConstIterator crend() const;
 
-        Iterator insert(const T& rhs);
+        Iterator insert(T&& rhs);
 
     private:
 
         void clear(detail::AvlTreeNode<T>* rhs);
-        void leftRotate();
-        void rightRotate();
-
         detail::AvlTreeNode<T>* root_;
     };
 }
@@ -57,6 +55,26 @@ template <typename T>
 coursework::AvlTree<T>::AvlTree():
     root_(nullptr)
 {}
+
+template <typename T>
+coursework::AvlTree<T>::AvlTree(AvlTree&& rhs) noexcept
+{
+    root_ = rhs.root_;
+    rhs.root_ = nullptr;
+}
+
+template <typename T>
+coursework::AvlTree<T>& coursework::AvlTree<T>::operator=(AvlTree&& rhs) noexcept
+{
+    if (this != &rhs)
+    {
+        clear(root_);
+        root_ = rhs.root_;
+        rhs.root_ = nullptr;
+    }
+
+    return *this;
+}
 
 template <typename T>
 coursework::AvlTree<T>::~AvlTree() noexcept
@@ -84,14 +102,14 @@ typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::end()
 }
 
 template <typename T>
-typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::insert(const T& rhs)
+typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::insert(T&& rhs)
 {
     using namespace detail;
     using Node = AvlTreeNode<T>;
 
     if (root_ == nullptr)
     {
-        root_ = new Node(rhs);
+        root_ = new Node(std::forward<T>(rhs));
         return Iterator(root_, root_);
     }
 
@@ -109,7 +127,7 @@ typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::insert(const T
         return end();
     }
 
-    curr = new Node(rhs, prev);
+    curr = new Node(std::forward<T>(rhs), prev);
     (rhs < curr->parent_->key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
 
     return Iterator(root_, curr);

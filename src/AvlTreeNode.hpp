@@ -1,6 +1,8 @@
 #ifndef AVL_TREE_NODE_HPP
 #define AVL_TREE_NODE_HPP
 
+#include <utility>
+
 namespace coursework
 {
     namespace detail
@@ -16,14 +18,14 @@ namespace coursework
 
             int factor_;
 
-            AvlTreeNode(const T& key, AvlTreeNode* parent = nullptr,
-                                      AvlTreeNode* left = nullptr,
-                                      AvlTreeNode* right = nullptr);
+            AvlTreeNode(T&& key, AvlTreeNode* parent = nullptr,
+                                 AvlTreeNode* left = nullptr,
+                                 AvlTreeNode* right = nullptr);
         };
 
         template<typename  T>
-        AvlTreeNode<T>::AvlTreeNode(const T& key, AvlTreeNode* parent, AvlTreeNode* left, AvlTreeNode* right):
-            key_(key),
+        AvlTreeNode<T>::AvlTreeNode(T&& key, AvlTreeNode* parent, AvlTreeNode* left, AvlTreeNode* right):
+            key_(std::forward<T>(key)),
             parent_(parent),
             left_(left),
             right_(right),
