@@ -1,22 +1,18 @@
-#include "AvlTree.hpp"
+#include "DictionaryList.hpp"
 #include <iostream>
 
 int main()
 {
-    coursework::AvlTree<int> tree;
+    coursework::DictionaryList<int> list;
 
-    tree.insert(5);
-    tree.insert(4);
-    tree.insert(-1000);
-    tree.insert(9);
-    tree.insert(8);
-    tree.insert(10);
-    tree.insert(13);
-    tree.insert(199);
+    list.insert(5);
+    list.insert(15);
+    list.insert(10);
+    list.insert(-3);
 
-    for (const auto& i : tree)
+    for (auto& i : list)
     {
-        std::cout << i << '\n';
+        std::cout << i << "\n";
     }
 
     std::cout << "Hello World\n";

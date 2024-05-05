@@ -76,12 +76,93 @@ coursework::DictionaryList<T>::~DictionaryList<T>() noexcept
 }
 
 template <typename T>
+typename coursework::DictionaryList<T>::Iterator coursework::DictionaryList<T>::begin()
+{
+    return Iterator(head_, head_);
+}
+
+
+template <typename T>
+typename coursework::DictionaryList<T>::Iterator coursework::DictionaryList<T>::end()
+{
+    return Iterator(head_, nullptr);
+}
+
+template <typename T>
+typename coursework::DictionaryList<T>::ConstIterator coursework::DictionaryList<T>::begin() const
+{
+    return begin();
+}
+
+
+template <typename T>
+typename coursework::DictionaryList<T>::ConstIterator coursework::DictionaryList<T>::end() const
+{
+    return end();
+}
+
+template <typename T>
+typename coursework::DictionaryList<T>::ConstIterator coursework::DictionaryList<T>::cbegin() const
+{
+    return begin();
+}
+
+
+template <typename T>
+typename coursework::DictionaryList<T>::ConstIterator coursework::DictionaryList<T>::cend() const
+{
+    return end();
+}
+
+template <typename T>
+typename coursework::DictionaryList<T>::Iterator coursework::DictionaryList<T>::insert(T&& rhs)
+{
+    if (head_ == nullptr)
+    {
+        head_ = new Node(std::forward<T>(rhs));
+        return begin();
+    }
+
+    if (rhs < head_->data_)
+    {
+        Node* newNode = new Node(std::forward<T>(rhs));
+        newNode->next_ = head_;
+        head_ = newNode;
+
+        return Iterator(head_, newNode);
+    }
+
+    Node* curr = head_;
+
+    while (curr->next_ != nullptr && curr->next_->data_ < rhs)
+    {
+        curr = curr->next_;
+    }
+
+    if (curr->next_ != nullptr && curr->next_->data_ == rhs)
+    {
+        return end();
+    }
+
+    if (curr->data_ < rhs)
+    {
+        Node* newNode = new Node(std::forward<T>(rhs));
+        newNode->next_ = curr->next_;
+        curr->next_ = newNode;
+
+        return Iterator(head_, newNode);
+    }
+
+    return end();
+}
+
+template <typename T>
 void coursework::DictionaryList<T>::clear()
 {
     while (head_ != nullptr)
     {
         Node* temp = head_;
-        head_ = head_->next;
+        head_ = head_->next_;
         delete temp;
     }
 }

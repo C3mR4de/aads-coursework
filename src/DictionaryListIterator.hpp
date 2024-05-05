@@ -39,6 +39,7 @@ namespace coursework
 
         Node* head_;
         Node* node_;
+        explicit DictionaryListIterator(Node* head, Node* node);
     };
 }
 
@@ -47,11 +48,17 @@ coursework::DictionaryListIterator<T>::DictionaryListIterator():
     head_(nullptr),
     node_(nullptr)
 {}
+template <typename T>
+coursework::DictionaryListIterator<T>::DictionaryListIterator(Node* head, Node* node):
+    head_(head),
+    node_(node)
+{}
 
 template <typename T>
 coursework::DictionaryListIterator<T>& coursework::DictionaryListIterator<T>::operator++()
 {
     node_ = node_->next_;
+    return *this;
 }
 
 template <typename T>
