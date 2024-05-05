@@ -10,7 +10,7 @@ int main()
     list.insert(10);
     list.insert(-3);
 
-    for (auto& i : list)
+    for (const auto& i : list)
     {
         std::cout << i << "\n";
     }
