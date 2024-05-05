@@ -9,6 +9,15 @@ int main()
     list.insert(15);
     list.insert(10);
     list.insert(-3);
+    list.insert(20);
+    list.insert(-100);
+
+    list.erase(10);
+    list.erase(15);
+
+    std::cout << (list.search(30) != list.end() ? "success\n" : "fail\n");
+    std::cout << (list.search(10) != list.end() ? "success\n" : "fail\n");
+    std::cout << (list.search(20) != list.end() ? "success\n" : "fail\n");
 
     for (const auto& i : list)
     {

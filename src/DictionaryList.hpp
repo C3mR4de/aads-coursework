@@ -37,6 +37,7 @@ namespace coursework
 
         Iterator insert(T&& rhs);
         Iterator erase(const T& rhs);
+        Iterator search(const T& rhs) const;
 
     private:
 
@@ -189,6 +190,19 @@ typename coursework::DictionaryList<T>::Iterator coursework::DictionaryList<T>::
     Node* temp = curr->next_;
     curr->next_ = curr->next_->next_;
     delete temp;
+
+    return Iterator(head_, curr);
+}
+
+template <typename T>
+typename coursework::DictionaryList<T>::Iterator coursework::DictionaryList<T>::search(const T& rhs) const
+{
+    Node* curr = head_;
+
+    while (curr != nullptr && curr->data_ != rhs)
+    {
+        curr = curr->next_;
+    }
 
     return Iterator(head_, curr);
 }
