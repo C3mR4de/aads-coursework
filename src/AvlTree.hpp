@@ -15,6 +15,7 @@ namespace coursework
 
         using Iterator = AvlTreeIterator<T>;
         using ConstIterator = AvlTreeIterator<const T>;
+        using Node = detail::AvlTreeNode<T>;
 
         AvlTree();
         AvlTree(const AvlTree& rhs) = delete;
@@ -46,8 +47,8 @@ namespace coursework
 
     private:
 
-        void clear(detail::AvlTreeNode<T>* rhs);
-        detail::AvlTreeNode<T>* root_;
+        void clear(Node* rhs);
+        Node* root_;
     };
 }
 
@@ -104,9 +105,6 @@ typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::end()
 template <typename T>
 typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::insert(T&& rhs)
 {
-    using namespace detail;
-    using Node = AvlTreeNode<T>;
-
     if (root_ == nullptr)
     {
         root_ = new Node(std::forward<T>(rhs));
@@ -134,7 +132,7 @@ typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::insert(T&& rhs
 }
 
 template <typename T>
-void coursework::AvlTree<T>::clear(coursework::detail::AvlTreeNode<T>* rhs)
+void coursework::AvlTree<T>::clear(Node* rhs)
 {
     if (rhs != nullptr)
     {

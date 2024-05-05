@@ -12,9 +12,10 @@ namespace coursework
     template <typename T>
     class AvlTreeIterator: std::iterator<std::bidirectional_iterator_tag, T>
     {
-        friend class AvlTree<T>;
-
     public:
+
+        friend class AvlTree<T>;
+        using Node = detail::AvlTreeNode<T>;
 
         AvlTreeIterator();
         AvlTreeIterator(const AvlTreeIterator&) = default;
@@ -38,9 +39,9 @@ namespace coursework
 
     private:
 
-        detail::AvlTreeNode<T>* root_;
-        detail::AvlTreeNode<T>* node_;
-        explicit AvlTreeIterator(detail::AvlTreeNode<T>* root, detail::AvlTreeNode<T>* node);
+        Node* root_;
+        Node* node_;
+        explicit AvlTreeIterator(Node* root, Node* node);
     };
 }
 
@@ -51,7 +52,7 @@ coursework::AvlTreeIterator<T>::AvlTreeIterator():
 {}
 
 template <typename T>
-coursework::AvlTreeIterator<T>::AvlTreeIterator(detail::AvlTreeNode<T>* root, detail::AvlTreeNode<T>* node):
+coursework::AvlTreeIterator<T>::AvlTreeIterator(Node* root, Node* node):
     root_(root),
     node_(node)
 {}
@@ -59,7 +60,7 @@ coursework::AvlTreeIterator<T>::AvlTreeIterator(detail::AvlTreeNode<T>* root, de
 template <typename T>
 coursework::AvlTreeIterator<T>& coursework::AvlTreeIterator<T>::operator++()
 {
-    detail::AvlTreeNode<T>* curr = node_;
+    Node* curr = node_;
 
     while (curr->right_ == nullptr || curr->key_ < node_->key_)
     {
