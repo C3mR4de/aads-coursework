@@ -11,11 +11,12 @@ namespace coursework
     template <typename T>
     class AvlTree
     {
+        using Node = detail::AvlTreeNode<T>;
+
     public:
 
         using Iterator = AvlTreeIterator<T>;
         using ConstIterator = AvlTreeIterator<const T>;
-        using Node = detail::AvlTreeNode<T>;
 
         AvlTree();
         AvlTree(const AvlTree& rhs) = delete;
@@ -58,9 +59,9 @@ coursework::AvlTree<T>::AvlTree():
 {}
 
 template <typename T>
-coursework::AvlTree<T>::AvlTree(AvlTree&& rhs) noexcept
+coursework::AvlTree<T>::AvlTree(AvlTree&& rhs) noexcept:
+    root_(rhs.root_)
 {
-    root_ = rhs.root_;
     rhs.root_ = nullptr;
 }
 
@@ -100,6 +101,30 @@ template <typename T>
 typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::end()
 {
     return Iterator(root_, nullptr);
+}
+
+template <typename T>
+typename coursework::AvlTree<T>::ConstIterator coursework::AvlTree<T>::begin() const
+{
+    return begin();
+}
+
+template <typename T>
+typename coursework::AvlTree<T>::ConstIterator coursework::AvlTree<T>::end() const
+{
+    return end();
+}
+
+template <typename T>
+typename coursework::AvlTree<T>::ConstIterator coursework::AvlTree<T>::cbegin() const
+{
+    return begin();
+}
+
+template <typename T>
+typename coursework::AvlTree<T>::ConstIterator coursework::AvlTree<T>::cend() const
+{
+    return end();
 }
 
 template <typename T>

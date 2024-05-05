@@ -22,16 +22,16 @@ namespace coursework
                                  AvlTreeNode* left = nullptr,
                                  AvlTreeNode* right = nullptr);
         };
-
-        template<typename  T>
-        AvlTreeNode<T>::AvlTreeNode(T&& key, AvlTreeNode* parent, AvlTreeNode* left, AvlTreeNode* right):
-            key_(std::forward<T>(key)),
-            parent_(parent),
-            left_(left),
-            right_(right),
-            factor_(0)
-        {}
     }
 }
+
+template<typename  T>
+coursework::detail::AvlTreeNode<T>::AvlTreeNode(T&& key, AvlTreeNode* parent, AvlTreeNode* left, AvlTreeNode* right):
+    key_(std::forward<T>(key)),
+    parent_(parent),
+    left_(left),
+    right_(right),
+    factor_(0)
+{}
 
 #endif

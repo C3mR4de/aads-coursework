@@ -1,8 +1,8 @@
 #ifndef AVL_TREE_ITERATOR_HPP
 #define AVL_TREE_ITERATOR_HPP
 
-#include "AvlTreeNode.hpp"
 #include <iterator>
+#include "AvlTreeNode.hpp"
 
 namespace coursework
 {
@@ -12,10 +12,10 @@ namespace coursework
     template <typename T>
     class AvlTreeIterator: std::iterator<std::bidirectional_iterator_tag, T>
     {
-    public:
-
         friend class AvlTree<T>;
         using Node = detail::AvlTreeNode<T>;
+
+    public:
 
         AvlTreeIterator();
         AvlTreeIterator(const AvlTreeIterator&) = default;
@@ -96,6 +96,18 @@ coursework::AvlTreeIterator<T> coursework::AvlTreeIterator<T>::operator++(int)
     AvlTreeIterator<T> temp(*this);
     ++(*this);
     return temp;
+}
+
+template <typename T>
+coursework::AvlTreeIterator<T>& coursework::AvlTreeIterator<T>::operator--()
+{
+
+}
+
+template <typename T>
+coursework::AvlTreeIterator<T> coursework::AvlTreeIterator<T>::operator--(int)
+{
+
 }
 
 template <typename T>

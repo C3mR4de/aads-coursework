@@ -14,7 +14,6 @@ int main()
     tree.insert(13);
     tree.insert(199);
 
-
     for (const auto& i : tree)
     {
         std::cout << i << '\n';
