@@ -81,10 +81,10 @@ int main()
     tree.insert("dsd", 3);
     tree.insert("dadad", 16);
     tree.insert("super", -10);
+    tree.insert("auto", 100);
 
     for (auto& i : tree)
     {
-        i.value_ = 32;
         std::cout << i.key_ << " " << i.value_ << "\n";
     }
 
