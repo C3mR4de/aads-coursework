@@ -8,15 +8,16 @@
 
 namespace coursework
 {
-    template <typename T>
+    template <typename T, typename U>
     class AvlTree
     {
-        using Node = detail::AvlTreeNode<T>;
+        using Node = detail::AvlTreeNode<T, U>;
+        using Data = Pair<T, U>;
 
     public:
 
-        using Iterator = AvlTreeIterator<T>;
-        using ConstIterator = AvlTreeIterator<const T>;
+        using Iterator = AvlTreeIterator<T, U>;
+        using ConstIterator = AvlTreeIterator<T, const U>;
 
         AvlTree();
         AvlTree(const AvlTree& rhs) = delete;
@@ -44,7 +45,7 @@ namespace coursework
         ConstIterator crbegin() const;
         ConstIterator crend() const;
 
-        Iterator insert(T&& rhs);
+        Iterator insert(const T& key, U&& value);
 
     private:
 
@@ -53,20 +54,20 @@ namespace coursework
     };
 }
 
-template <typename T>
-coursework::AvlTree<T>::AvlTree():
+template <typename T, typename U>
+coursework::AvlTree<T, U>::AvlTree():
     root_(nullptr)
 {}
 
-template <typename T>
-coursework::AvlTree<T>::AvlTree(AvlTree&& rhs) noexcept:
+template <typename T, typename U>
+coursework::AvlTree<T, U>::AvlTree(AvlTree&& rhs) noexcept:
     root_(rhs.root_)
 {
     rhs.root_ = nullptr;
 }
 
-template <typename T>
-coursework::AvlTree<T>& coursework::AvlTree<T>::operator=(AvlTree&& rhs) noexcept
+template <typename T, typename U>
+coursework::AvlTree<T, U>& coursework::AvlTree<T, U>::operator=(AvlTree&& rhs) noexcept
 {
     if (this != &rhs)
     {
@@ -78,16 +79,16 @@ coursework::AvlTree<T>& coursework::AvlTree<T>::operator=(AvlTree&& rhs) noexcep
     return *this;
 }
 
-template <typename T>
-coursework::AvlTree<T>::~AvlTree() noexcept
+template <typename T, typename U>
+coursework::AvlTree<T, U>::~AvlTree() noexcept
 {
     clear(root_);
 }
 
-template <typename T>
-typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::begin()
+template <typename T, typename U>
+typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::begin()
 {
-    detail::AvlTreeNode<T>* res = root_;
+    Node* res = root_;
 
     while (res->left_ != nullptr)
     {
@@ -97,52 +98,52 @@ typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::begin()
     return Iterator(root_, res);
 }
 
-template <typename T>
-typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::end()
+template <typename T, typename U>
+typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::end()
 {
     return Iterator(root_, nullptr);
 }
 
-template <typename T>
-typename coursework::AvlTree<T>::ConstIterator coursework::AvlTree<T>::begin() const
+template <typename T, typename U>
+typename coursework::AvlTree<T, U>::ConstIterator coursework::AvlTree<T, U>::begin() const
 {
     return begin();
 }
 
-template <typename T>
-typename coursework::AvlTree<T>::ConstIterator coursework::AvlTree<T>::end() const
+template <typename T, typename U>
+typename coursework::AvlTree<T, U>::ConstIterator coursework::AvlTree<T, U>::end() const
 {
     return end();
 }
 
-template <typename T>
-typename coursework::AvlTree<T>::ConstIterator coursework::AvlTree<T>::cbegin() const
+template <typename T, typename U>
+typename coursework::AvlTree<T, U>::ConstIterator coursework::AvlTree<T, U>::cbegin() const
 {
     return begin();
 }
 
-template <typename T>
-typename coursework::AvlTree<T>::ConstIterator coursework::AvlTree<T>::cend() const
+template <typename T, typename U>
+typename coursework::AvlTree<T, U>::ConstIterator coursework::AvlTree<T, U>::cend() const
 {
     return end();
 }
 
-template <typename T>
-typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::insert(T&& rhs)
+template <typename T, typename U>
+typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::insert(const T& key, U&& value)
 {
     if (root_ == nullptr)
     {
-        root_ = new Node(std::forward<T>(rhs));
-        return Iterator(root_, root_);
+        root_ = new Node(key, std::forward<U>(value));
+        return begin();
     }
 
     Node* curr = root_;
     Node* prev = nullptr;
 
-    while (curr != nullptr && rhs != curr->key_)
+    while (curr != nullptr && key != curr->data_.key_)
     {
         prev = curr;
-        curr = rhs < curr->key_ ? curr->left_ : curr->right_;
+        curr = key < curr->data_.key_ ? curr->left_ : curr->right_;
     }
 
     if (curr != nullptr)
@@ -150,14 +151,14 @@ typename coursework::AvlTree<T>::Iterator coursework::AvlTree<T>::insert(T&& rhs
         return end();
     }
 
-    curr = new Node(std::forward<T>(rhs), prev);
-    (rhs < curr->parent_->key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
+    curr = new Node(key, std::forward<U>(value), prev);
+    (key < curr->parent_->data_.key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
 
     return Iterator(root_, curr);
 }
 
-template <typename T>
-void coursework::AvlTree<T>::clear(Node* rhs)
+template <typename T, typename U>
+void coursework::AvlTree<T, U>::clear(Node* rhs)
 {
     if (rhs != nullptr)
     {

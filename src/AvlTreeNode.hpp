@@ -2,15 +2,16 @@
 #define AVL_TREE_NODE_HPP
 
 #include <utility>
+#include "Pair.hpp"
 
 namespace coursework
 {
     namespace detail
     {
-        template <typename T>
+        template <typename T, typename U>
         struct AvlTreeNode
         {
-            T key_;
+            Pair<const T, U> data_;
 
             AvlTreeNode* parent_;
             AvlTreeNode* left_;
@@ -18,16 +19,22 @@ namespace coursework
 
             int factor_;
 
-            AvlTreeNode(T&& key, AvlTreeNode* parent = nullptr,
-                                 AvlTreeNode* left = nullptr,
-                                 AvlTreeNode* right = nullptr);
+            AvlTreeNode(const T& key,
+                        U&& value,
+                        AvlTreeNode* parent = nullptr,
+                        AvlTreeNode* left = nullptr,
+                        AvlTreeNode* right = nullptr);
         };
     }
 }
 
-template<typename  T>
-coursework::detail::AvlTreeNode<T>::AvlTreeNode(T&& key, AvlTreeNode* parent, AvlTreeNode* left, AvlTreeNode* right):
-    key_(std::forward<T>(key)),
+template<typename T, typename U>
+coursework::detail::AvlTreeNode<T, U>::AvlTreeNode(const T& key,
+                                                   U&& value,
+                                                   AvlTreeNode* parent,
+                                                   AvlTreeNode* left,
+                                                   AvlTreeNode* right):
+    data_(key, std::forward<U>(value)),
     parent_(parent),
     left_(left),
     right_(right),

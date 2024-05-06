@@ -1,3 +1,4 @@
+#include "AvlTree.hpp"
 #include "DictionaryList.hpp"
 #include <string>
 #include <iostream>
@@ -74,6 +75,18 @@ int main()
     std::cout << "\n";
 
     std::cout << "Hello World\n";
+
+    coursework::AvlTree<std::string, int> tree;
+
+    tree.insert("dsd", 3);
+    tree.insert("dadad", 16);
+    tree.insert("super", -10);
+
+    for (auto& i : tree)
+    {
+        i.value_ = 32;
+        std::cout << i.key_ << " " << i.value_ << "\n";
+    }
 
     return 0;
 }

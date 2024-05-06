@@ -10,7 +10,7 @@ namespace coursework
     class DictionaryList;
 
     template <typename T>
-    class DictionaryListIterator: std::iterator<std::forward_iterator_tag, T>
+    class DictionaryListIterator: std::iterator<std::forward_iterator_tag, const T>
     {
     public:
 
