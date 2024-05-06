@@ -20,16 +20,16 @@ namespace coursework
         using ConstIterator = AvlTreeIterator<T, const U>;
 
         AvlTree();
-        AvlTree(const AvlTree& rhs) = delete;
+        AvlTree(const AvlTree&) = delete;
         AvlTree(AvlTree&& rhs) noexcept;
         AvlTree(std::initializer_list<T> rhs);
         template <typename InputIterator>
         AvlTree(InputIterator begin, InputIterator end);
 
-        AvlTree& operator=(const AvlTree& rhs) = delete;
+        AvlTree& operator=(const AvlTree&) = delete;
         AvlTree& operator=(AvlTree&& rhs) noexcept;
 
-        ~AvlTree() noexcept;
+        virtual ~AvlTree() noexcept;
 
         Iterator begin();
         Iterator end();
@@ -154,6 +154,7 @@ typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::insert(c
     curr = new Node(key, std::forward<U>(value), prev);
     (key < curr->parent_->data_.key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
 
+    root_ = root_->balance();
     return Iterator(root_, curr);
 }
 

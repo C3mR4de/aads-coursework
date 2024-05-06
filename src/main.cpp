@@ -82,6 +82,7 @@ int main()
     tree.insert("dadad", 16);
     tree.insert("super", -10);
     tree.insert("auto", 100);
+    tree.insert("-----fwfeeauto", 2000);
 
     for (auto& i : tree)
     {
