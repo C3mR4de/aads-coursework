@@ -34,4 +34,4 @@ coursework::detail::AvlTreeNode<T>::AvlTreeNode(T&& key, AvlTreeNode* parent, Av
     factor_(0)
 {}
 
-#endif
+#endif // AVL_TREE_NODE_HPP

@@ -1,4 +1,5 @@
 #include "DictionaryList.hpp"
+#include <string>
 #include <iostream>
 
 int main()
@@ -19,10 +20,58 @@ int main()
     std::cout << (list.search(10) != list.end() ? "success\n" : "fail\n");
     std::cout << (list.search(20) != list.end() ? "success\n" : "fail\n");
 
+    coursework::DictionaryList<int> list2(list);
+
+    list2.insert(1000);
+
+    coursework::DictionaryList<int> list3 = list2;
+
+    list3.erase(5);
+
     for (const auto& i : list)
     {
         std::cout << i << "\n";
     }
+
+    std::cout << "\n";
+
+    for (const auto& i : list2)
+    {
+        std::cout << i << "\n";
+    }
+
+    std::cout << "\n";
+
+    for (const auto& i : list3)
+    {
+        std::cout << i << "\n";
+    }
+
+    std::cout << "\n";
+
+    coursework::DictionaryList<std::string> strlist;
+
+    strlist.insert("fefe");
+    strlist.insert("ratatata");
+    strlist.insert("rapapa");
+
+    coursework::DictionaryList<std::string> strlist2(strlist);
+
+    strlist2.insert("tatar");
+
+    for (const auto& i : strlist)
+    {
+        std::cout << i << "\n";
+    }
+
+    std::cout << "\n";
+
+    for (const auto& i : strlist2)
+    {
+        std::cout << i << "\n";
+    }
+
+    std::cout << "\n";
 
     std::cout << "Hello World\n";
 

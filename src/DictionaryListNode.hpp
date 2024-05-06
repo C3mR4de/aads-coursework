@@ -13,15 +13,15 @@ namespace coursework
             T data_;
             DictionaryListNode* next_;
 
-            DictionaryListNode(T&& rhs);
+            DictionaryListNode(T&& rhs, DictionaryListNode* next = nullptr);
         };
     }
 }
 
 template <typename T>
-coursework::detail::DictionaryListNode<T>::DictionaryListNode(T&& rhs):
+coursework::detail::DictionaryListNode<T>::DictionaryListNode(T&& rhs, DictionaryListNode* next):
     data_(std::forward<T>(rhs)),
-    next_(nullptr)
+    next_(next)
 {}
 
-#endif
+#endif // DICTIONARY_LIST_NODE_HPP

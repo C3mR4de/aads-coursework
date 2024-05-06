@@ -17,13 +17,13 @@ namespace coursework
         using ConstIterator = DictionaryListIterator<const T>;
 
         DictionaryList();
-        DictionaryList(const DictionaryList& rhs) = delete;
+        DictionaryList(const DictionaryList& rhs);
         DictionaryList(DictionaryList&& rhs) noexcept;
         DictionaryList(std::initializer_list<T> rhs);
         template <typename InputIterator>
         DictionaryList(InputIterator begin, InputIterator end);
 
-        DictionaryList& operator=(const DictionaryList& rhs) = delete;
+        DictionaryList& operator=(const DictionaryList& rhs);
         DictionaryList& operator=(DictionaryList&& rhs) noexcept;
 
         ~DictionaryList() noexcept;
@@ -52,10 +52,45 @@ coursework::DictionaryList<T>::DictionaryList():
 {}
 
 template <typename T>
+coursework::DictionaryList<T>::DictionaryList(const DictionaryList& rhs)
+{
+    if (rhs.head_ != nullptr)
+    {
+        DictionaryList temp;
+        temp.head_ = new Node(T(rhs.head_->data_));
+
+        Node* prev = temp.head_;
+        Node* curr = nullptr;
+
+        for (const Node* i = rhs.head_->next_; i != nullptr; i = i->next_)
+        {
+            curr = new Node(T(i->data_));
+            prev->next_ = curr;
+            prev = curr;
+        }
+
+        head_ = temp.head_;
+        temp.head_ = nullptr;
+    }
+}
+
+template <typename T>
 coursework::DictionaryList<T>::DictionaryList(DictionaryList&& rhs) noexcept:
     head_(rhs.head_)
 {
     rhs.head_ = nullptr;
+}
+
+template <typename T>
+coursework::DictionaryList<T>& coursework::DictionaryList<T>::operator=(const DictionaryList& rhs)
+{
+    if (this != &rhs)
+    {
+        DictionaryList temp(rhs);
+        std::swap(head_, temp.head_);
+    }
+
+    return *this;
 }
 
 template <typename T>
