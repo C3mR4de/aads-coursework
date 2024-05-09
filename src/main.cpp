@@ -89,5 +89,8 @@ int main()
         std::cout << i.key_ << " " << i.value_ << "\n";
     }
 
+    auto res = tree.search("dsd");
+    std::cout << (res != tree.end() ? res->value_ : 0) << "\n";
+
     return 0;
 }

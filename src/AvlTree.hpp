@@ -46,6 +46,7 @@ namespace coursework
         ConstIterator crend() const;
 
         Iterator insert(const T& key, U&& value);
+        Iterator search(const T& key) const;
 
     private:
 
@@ -155,6 +156,19 @@ typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::insert(c
     (key < curr->parent_->data_.key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
 
     root_ = root_->balance();
+    return Iterator(root_, curr);
+}
+
+template <typename T, typename U>
+typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::search(const T& key) const
+{
+    Node* curr = root_;
+
+    while (curr != nullptr && key != curr->data_.key_)
+    {
+        curr = key < curr->data_.key_ ? curr->left_ : curr->right_;
+    }
+
     return Iterator(root_, curr);
 }
 

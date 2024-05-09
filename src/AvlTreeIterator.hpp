@@ -32,8 +32,8 @@ namespace coursework
         Data& operator*();
         const Data& operator*() const;
 
-        Data& operator->();
-        const Data& operator->() const;
+        Data* operator->();
+        const Data* operator->() const;
 
         bool operator==(const AvlTreeIterator& rhs) const;
         bool operator!=(const AvlTreeIterator& rhs) const;
@@ -126,15 +126,15 @@ const typename coursework::AvlTreeIterator<T, U>::Data& coursework::AvlTreeItera
 }
 
 template <typename T, typename U>
-typename coursework::AvlTreeIterator<T, U>::Data& coursework::AvlTreeIterator<T, U>::operator->()
+typename coursework::AvlTreeIterator<T, U>::Data* coursework::AvlTreeIterator<T, U>::operator->()
 {
-    return node_->data_;
+    return &node_->data_;
 }
 
 template <typename T, typename U>
-const typename coursework::AvlTreeIterator<T, U>::Data& coursework::AvlTreeIterator<T, U>::operator->() const
+const typename coursework::AvlTreeIterator<T, U>::Data* coursework::AvlTreeIterator<T, U>::operator->() const
 {
-    return node_->data_;
+    return &node_->data_;
 }
 
 template <typename T, typename U>

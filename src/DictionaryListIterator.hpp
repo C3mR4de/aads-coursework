@@ -29,8 +29,8 @@ namespace coursework
         T& operator*();
         const T& operator*() const;
 
-        T& operator->();
-        const T& operator->() const;
+        T* operator->();
+        const T* operator->() const;
 
         bool operator==(const DictionaryListIterator& rhs) const;
         bool operator!=(const DictionaryListIterator& rhs) const;
@@ -82,15 +82,15 @@ const T& coursework::DictionaryListIterator<T>::operator*() const
 }
 
 template <typename T>
-T& coursework::DictionaryListIterator<T>::operator->()
+T* coursework::DictionaryListIterator<T>::operator->()
 {
-    return node_->data_;
+    return &node_->data_;
 }
 
 template <typename T>
-const T& coursework::DictionaryListIterator<T>::operator->() const
+const T* coursework::DictionaryListIterator<T>::operator->() const
 {
-    return node_->data_;
+    return &node_->data_;
 }
 
 template <typename T>
