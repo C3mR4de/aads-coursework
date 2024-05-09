@@ -47,6 +47,7 @@ namespace coursework
 
         Iterator insert(const T& key, U&& value);
         Iterator search(const T& key) const;
+        Iterator remove(const T& key, const T& value);
 
     private:
 
@@ -170,6 +171,12 @@ typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::search(c
     }
 
     return Iterator(root_, curr);
+}
+
+template <typename T, typename U>
+typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::remove(const T& key, const T& value)
+{
+
 }
 
 template <typename T, typename U>

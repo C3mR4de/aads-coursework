@@ -52,9 +52,12 @@ int main()
 
     coursework::DictionaryList<std::string> strlist;
 
+    std::string str = "already created string";
+
     strlist.insert("fefe");
     strlist.insert("ratatata");
     strlist.insert("rapapa");
+    strlist.insert(std::move(str));
 
     coursework::DictionaryList<std::string> strlist2(strlist);
 
