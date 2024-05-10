@@ -9,36 +9,36 @@ namespace coursework
     namespace detail
     {
         template <typename T, typename U>
-        struct AvlTreeNode
+        struct AvlTreeMapNode
         {
             Pair<const T, U> data_;
 
-            AvlTreeNode* parent_;
-            AvlTreeNode* left_;
-            AvlTreeNode* right_;
+            AvlTreeMapNode* parent_;
+            AvlTreeMapNode* left_;
+            AvlTreeMapNode* right_;
 
             int factor_;
 
-            AvlTreeNode(const T& key,
+            AvlTreeMapNode(const T& key,
                         U&& value,
-                        AvlTreeNode* parent = nullptr,
-                        AvlTreeNode* left = nullptr,
-                        AvlTreeNode* right = nullptr);
+                        AvlTreeMapNode* parent = nullptr,
+                        AvlTreeMapNode* left = nullptr,
+                        AvlTreeMapNode* right = nullptr);
 
             void fixFactor() noexcept;
-            AvlTreeNode* rotateLeft() noexcept;
-            AvlTreeNode* rotateRight() noexcept;
-            AvlTreeNode* balance() noexcept;
+            AvlTreeMapNode* rotateLeft() noexcept;
+            AvlTreeMapNode* rotateRight() noexcept;
+            AvlTreeMapNode* balance() noexcept;
         };
     }
 }
 
 template<typename T, typename U>
-coursework::detail::AvlTreeNode<T, U>::AvlTreeNode(const T& key,
+coursework::detail::AvlTreeMapNode<T, U>::AvlTreeMapNode(const T& key,
                                                    U&& value,
-                                                   AvlTreeNode* parent,
-                                                   AvlTreeNode* left,
-                                                   AvlTreeNode* right):
+                                                   AvlTreeMapNode* parent,
+                                                   AvlTreeMapNode* left,
+                                                   AvlTreeMapNode* right):
     data_(key, std::forward<U>(value)),
     parent_(parent),
     left_(left),
@@ -47,7 +47,7 @@ coursework::detail::AvlTreeNode<T, U>::AvlTreeNode(const T& key,
 {}
 
 template<typename T, typename U>
-void coursework::detail::AvlTreeNode<T, U>::fixFactor() noexcept
+void coursework::detail::AvlTreeMapNode<T, U>::fixFactor() noexcept
 {
     int factorLeft = left_ == nullptr ? factor_ - 1 : left_->factor_;
 	int factorRight = right_ == nullptr ? factor_ + 1 : right_->factor_;
@@ -55,11 +55,11 @@ void coursework::detail::AvlTreeNode<T, U>::fixFactor() noexcept
 }
 
 template<typename T, typename U>
-coursework::detail::AvlTreeNode<T, U>* coursework::detail::AvlTreeNode<T, U>::rotateLeft() noexcept
+coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::rotateLeft() noexcept
 {
     if (this != nullptr && right_ != nullptr)
     {
-        AvlTreeNode<T, U>* p = right_;
+        AvlTreeMapNode<T, U>* p = right_;
 
         right_ = p->left_;
         p->left_ = this;
@@ -74,11 +74,11 @@ coursework::detail::AvlTreeNode<T, U>* coursework::detail::AvlTreeNode<T, U>::ro
 }
 
 template<typename T, typename U>
-coursework::detail::AvlTreeNode<T, U>* coursework::detail::AvlTreeNode<T, U>::rotateRight() noexcept
+coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::rotateRight() noexcept
 {
     if (this != nullptr && left_ != nullptr)
     {
-        AvlTreeNode<T, U>* p = left_;
+        AvlTreeMapNode<T, U>* p = left_;
 
         left_ = p->right_;
         p->right_ = this;
@@ -93,7 +93,7 @@ coursework::detail::AvlTreeNode<T, U>* coursework::detail::AvlTreeNode<T, U>::ro
 }
 
 template<typename T, typename U>
-coursework::detail::AvlTreeNode<T, U>* coursework::detail::AvlTreeNode<T, U>::balance() noexcept
+coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::balance() noexcept
 {
     fixFactor();
 

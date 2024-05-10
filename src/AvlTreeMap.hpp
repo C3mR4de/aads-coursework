@@ -3,33 +3,33 @@
 
 #include <initializer_list>
 #include <utility>
-#include "AvlTreeIterator.hpp"
-#include "AvlTreeNode.hpp"
+#include "AvlTreeMapIterator.hpp"
+#include "AvlTreeMapNode.hpp"
 
 namespace coursework
 {
     template <typename T, typename U>
-    class AvlTree
+    class AvlTreeMap
     {
-        using Node = detail::AvlTreeNode<T, U>;
+        using Node = detail::AvlTreeMapNode<T, U>;
         using Data = Pair<T, U>;
 
     public:
 
-        using Iterator = AvlTreeIterator<T, U>;
-        using ConstIterator = AvlTreeIterator<T, const U>;
+        using Iterator = AvlTreeMapIterator<T, U>;
+        using ConstIterator = AvlTreeMapIterator<T, const U>;
 
-        AvlTree();
-        AvlTree(const AvlTree&) = delete;
-        AvlTree(AvlTree&& rhs) noexcept;
-        AvlTree(std::initializer_list<T> rhs);
+        AvlTreeMap();
+        AvlTreeMap(const AvlTreeMap&) = delete;
+        AvlTreeMap(AvlTreeMap&& rhs) noexcept;
+        AvlTreeMap(std::initializer_list<T> rhs);
         template <typename InputIterator>
-        AvlTree(InputIterator begin, InputIterator end);
+        AvlTreeMap(InputIterator begin, InputIterator end);
 
-        AvlTree& operator=(const AvlTree&) = delete;
-        AvlTree& operator=(AvlTree&& rhs) noexcept;
+        AvlTreeMap& operator=(const AvlTreeMap&) = delete;
+        AvlTreeMap& operator=(AvlTreeMap&& rhs) noexcept;
 
-        virtual ~AvlTree() noexcept;
+        virtual ~AvlTreeMap() noexcept;
 
         Iterator begin();
         Iterator end();
@@ -57,19 +57,19 @@ namespace coursework
 }
 
 template <typename T, typename U>
-coursework::AvlTree<T, U>::AvlTree():
+coursework::AvlTreeMap<T, U>::AvlTreeMap():
     root_(nullptr)
 {}
 
 template <typename T, typename U>
-coursework::AvlTree<T, U>::AvlTree(AvlTree&& rhs) noexcept:
+coursework::AvlTreeMap<T, U>::AvlTreeMap(AvlTreeMap&& rhs) noexcept:
     root_(rhs.root_)
 {
     rhs.root_ = nullptr;
 }
 
 template <typename T, typename U>
-coursework::AvlTree<T, U>& coursework::AvlTree<T, U>::operator=(AvlTree&& rhs) noexcept
+coursework::AvlTreeMap<T, U>& coursework::AvlTreeMap<T, U>::operator=(AvlTreeMap&& rhs) noexcept
 {
     if (this != &rhs)
     {
@@ -82,13 +82,13 @@ coursework::AvlTree<T, U>& coursework::AvlTree<T, U>::operator=(AvlTree&& rhs) n
 }
 
 template <typename T, typename U>
-coursework::AvlTree<T, U>::~AvlTree() noexcept
+coursework::AvlTreeMap<T, U>::~AvlTreeMap() noexcept
 {
     clear(root_);
 }
 
 template <typename T, typename U>
-typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::begin()
+typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::begin()
 {
     Node* res = root_;
 
@@ -101,37 +101,37 @@ typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::begin()
 }
 
 template <typename T, typename U>
-typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::end()
+typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::end()
 {
     return Iterator(root_, nullptr);
 }
 
 template <typename T, typename U>
-typename coursework::AvlTree<T, U>::ConstIterator coursework::AvlTree<T, U>::begin() const
+typename coursework::AvlTreeMap<T, U>::ConstIterator coursework::AvlTreeMap<T, U>::begin() const
 {
     return begin();
 }
 
 template <typename T, typename U>
-typename coursework::AvlTree<T, U>::ConstIterator coursework::AvlTree<T, U>::end() const
+typename coursework::AvlTreeMap<T, U>::ConstIterator coursework::AvlTreeMap<T, U>::end() const
 {
     return end();
 }
 
 template <typename T, typename U>
-typename coursework::AvlTree<T, U>::ConstIterator coursework::AvlTree<T, U>::cbegin() const
+typename coursework::AvlTreeMap<T, U>::ConstIterator coursework::AvlTreeMap<T, U>::cbegin() const
 {
     return begin();
 }
 
 template <typename T, typename U>
-typename coursework::AvlTree<T, U>::ConstIterator coursework::AvlTree<T, U>::cend() const
+typename coursework::AvlTreeMap<T, U>::ConstIterator coursework::AvlTreeMap<T, U>::cend() const
 {
     return end();
 }
 
 template <typename T, typename U>
-typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::insert(const T& key, U&& value)
+typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::insert(const T& key, U&& value)
 {
     if (root_ == nullptr)
     {
@@ -161,7 +161,7 @@ typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::insert(c
 }
 
 template <typename T, typename U>
-typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::search(const T& key) const
+typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::search(const T& key) const
 {
     Node* curr = root_;
 
@@ -174,13 +174,13 @@ typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::search(c
 }
 
 template <typename T, typename U>
-typename coursework::AvlTree<T, U>::Iterator coursework::AvlTree<T, U>::remove(const T& key, const T& value)
+typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::remove(const T& key, const T& value)
 {
 
 }
 
 template <typename T, typename U>
-void coursework::AvlTree<T, U>::clear(Node* rhs)
+void coursework::AvlTreeMap<T, U>::clear(Node* rhs)
 {
     if (rhs != nullptr)
     {
