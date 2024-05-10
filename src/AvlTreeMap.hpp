@@ -153,7 +153,7 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::in
         return end();
     }
 
-    curr = new Node(key, std::forward<U>(value), prev);
+    curr = new Node(std::forward<T>(key), std::forward<U>(value), prev);
     (key < curr->parent_->data_.key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
 
     root_ = root_->balance();

@@ -19,11 +19,11 @@ namespace coursework
 
             int factor_;
 
-            AvlTreeMapNode(const T& key,
-                        U&& value,
-                        AvlTreeMapNode* parent = nullptr,
-                        AvlTreeMapNode* left = nullptr,
-                        AvlTreeMapNode* right = nullptr);
+            AvlTreeMapNode(const T&& key,
+                           U&& value,
+                           AvlTreeMapNode* parent = nullptr,
+                           AvlTreeMapNode* left = nullptr,
+                           AvlTreeMapNode* right = nullptr);
 
             void fixFactor() noexcept;
             AvlTreeMapNode* rotateLeft() noexcept;
@@ -34,12 +34,12 @@ namespace coursework
 }
 
 template<typename T, typename U>
-coursework::detail::AvlTreeMapNode<T, U>::AvlTreeMapNode(const T& key,
-                                                   U&& value,
-                                                   AvlTreeMapNode* parent,
-                                                   AvlTreeMapNode* left,
-                                                   AvlTreeMapNode* right):
-    data_(key, std::forward<U>(value)),
+coursework::detail::AvlTreeMapNode<T, U>::AvlTreeMapNode(const T&& key,
+                                                         U&& value,
+                                                         AvlTreeMapNode* parent,
+                                                         AvlTreeMapNode* left,
+                                                         AvlTreeMapNode* right):
+    data_(std::forward<const T>(key), std::forward<U>(value)),
     parent_(parent),
     left_(left),
     right_(right),

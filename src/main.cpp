@@ -12,8 +12,14 @@ int main()
     tree.insert("auto", 100);
     tree.insert("-----fwfeeauto", 2000);
 
+    for (const auto& i : tree)
+    {
+        std::cout << i.key_ << " " << i.value_ << "\n";
+    }
+
     for (auto& i : tree)
     {
+        i.value_ = 4324;
         std::cout << i.key_ << " " << i.value_ << "\n";
     }
 
