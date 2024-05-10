@@ -1,5 +1,5 @@
-#ifndef AVL_TREE_NODE_HPP
-#define AVL_TREE_NODE_HPP
+#ifndef AVL_TREE_MAP_NODE_HPP
+#define AVL_TREE_MAP_NODE_HPP
 
 #include <utility>
 #include "Pair.hpp"
@@ -19,7 +19,7 @@ namespace coursework
 
             int factor_;
 
-            AvlTreeMapNode(const T&& key,
+            AvlTreeMapNode(T&& key,
                            U&& value,
                            AvlTreeMapNode* parent = nullptr,
                            AvlTreeMapNode* left = nullptr,
@@ -34,12 +34,12 @@ namespace coursework
 }
 
 template<typename T, typename U>
-coursework::detail::AvlTreeMapNode<T, U>::AvlTreeMapNode(const T&& key,
+coursework::detail::AvlTreeMapNode<T, U>::AvlTreeMapNode(T&& key,
                                                          U&& value,
                                                          AvlTreeMapNode* parent,
                                                          AvlTreeMapNode* left,
                                                          AvlTreeMapNode* right):
-    data_(std::forward<const T>(key), std::forward<U>(value)),
+    data_(std::forward<T>(key), std::forward<U>(value)),
     parent_(parent),
     left_(left),
     right_(right),
@@ -120,4 +120,4 @@ coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, 
 	return this;
 }
 
-#endif // AVL_TREE_NODE_HPP
+#endif // AVL_TREE_MAP_NODE_HPP

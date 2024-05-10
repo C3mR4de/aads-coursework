@@ -1,5 +1,5 @@
-#ifndef AVL_TREE_ITERATOR_HPP
-#define AVL_TREE_ITERATOR_HPP
+#ifndef AVL_TREE_MAP_ITERATOR_HPP
+#define AVL_TREE_MAP_ITERATOR_HPP
 
 #include <iterator>
 #include "AvlTreeMapNode.hpp"
@@ -149,4 +149,4 @@ bool coursework::AvlTreeMapIterator<T, U>::operator!=(const AvlTreeMapIterator& 
     return !(*this == rhs);
 }
 
-#endif // AVL_TREE_ITERATOR_HPP
+#endif // AVL_TREE_MAP_ITERATOR_HPP

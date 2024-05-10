@@ -1,5 +1,5 @@
-#ifndef AVL_TREE_HPP
-#define AVL_TREE_HPP
+#ifndef AVL_TREE_MAP_HPP
+#define AVL_TREE_MAP_HPP
 
 #include <initializer_list>
 #include <utility>
@@ -190,4 +190,4 @@ void coursework::AvlTreeMap<T, U>::clear(Node* rhs)
     }
 }
 
-#endif // AVL_TREE_HPP
+#endif // AVL_TREE_MAP_HPP
