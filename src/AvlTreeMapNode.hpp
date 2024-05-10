@@ -59,15 +59,15 @@ coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, 
 {
     if (this != nullptr && right_ != nullptr)
     {
-        AvlTreeMapNode<T, U>* p = right_;
+        AvlTreeMapNode<T, U>* pivot = right_;
 
-        right_ = p->left_;
-        p->left_ = this;
+        right_ = pivot->left_;
+        pivot->left_ = this;
 
         fixFactor();
-        p->fixFactor();
+        pivot->fixFactor();
 
-        return p;
+        return pivot;
     }
 
     return this;
@@ -78,15 +78,15 @@ coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, 
 {
     if (this != nullptr && left_ != nullptr)
     {
-        AvlTreeMapNode<T, U>* p = left_;
+        AvlTreeMapNode<T, U>* pivot = left_;
 
-        left_ = p->right_;
-        p->right_ = this;
+        left_ = pivot->right_;
+        pivot->right_ = this;
 
         fixFactor();
-        p->fixFactor();
+        pivot->fixFactor();
 
-        return p;
+        return pivot;
     }
 
     return this;
