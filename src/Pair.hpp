@@ -11,13 +11,13 @@ namespace coursework
         T key_;
         U value_;
 
-        Pair(const T& key, U&& value);
+        Pair(T&& key, U&& value);
     };
 }
 
 template <typename T, typename U>
-coursework::Pair<T, U>::Pair(const T& key, U&& value):
-    key_(key),
+coursework::Pair<T, U>::Pair(T&& key, U&& value):
+    key_(std::forward<T>(key)),
     value_(std::forward<U>(value))
 {}
 
