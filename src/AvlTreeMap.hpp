@@ -45,7 +45,7 @@ namespace coursework
         ConstIterator crbegin() const;
         ConstIterator crend() const;
 
-        Iterator insert(const T& key, U&& value);
+        Iterator insert(T&& key, U&& value);
         Iterator search(const T& key) const;
         Iterator remove(const T& key, const T& value);
 
@@ -131,11 +131,11 @@ typename coursework::AvlTreeMap<T, U>::ConstIterator coursework::AvlTreeMap<T, U
 }
 
 template <typename T, typename U>
-typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::insert(const T& key, U&& value)
+typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::insert(T&& key, U&& value)
 {
     if (root_ == nullptr)
     {
-        root_ = new Node(key, std::forward<U>(value));
+        root_ = new Node(std::forward<T>(key), std::forward<U>(value));
         return begin();
     }
 
