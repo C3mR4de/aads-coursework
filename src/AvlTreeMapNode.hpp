@@ -33,7 +33,7 @@ namespace coursework
     }
 }
 
-template<typename T, typename U>
+template <typename T, typename U>
 coursework::detail::AvlTreeMapNode<T, U>::AvlTreeMapNode(T&& key,
                                                          U&& value,
                                                          AvlTreeMapNode* parent,
@@ -46,7 +46,7 @@ coursework::detail::AvlTreeMapNode<T, U>::AvlTreeMapNode(T&& key,
     factor_(0)
 {}
 
-template<typename T, typename U>
+template <typename T, typename U>
 void coursework::detail::AvlTreeMapNode<T, U>::fixFactor() noexcept
 {
     int factorLeft = left_ == nullptr ? factor_ - 1 : left_->factor_;
@@ -54,7 +54,7 @@ void coursework::detail::AvlTreeMapNode<T, U>::fixFactor() noexcept
 	factor_ = (factorLeft > factorRight ? factorLeft : factorRight) + 1;
 }
 
-template<typename T, typename U>
+template <typename T, typename U>
 coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::rotateLeft() noexcept
 {
     if (this != nullptr && right_ != nullptr)
@@ -73,7 +73,7 @@ coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, 
     return this;
 }
 
-template<typename T, typename U>
+template <typename T, typename U>
 coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::rotateRight() noexcept
 {
     if (this != nullptr && left_ != nullptr)
@@ -92,7 +92,7 @@ coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, 
     return this;
 }
 
-template<typename T, typename U>
+template <typename T, typename U>
 coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::balance() noexcept
 {
     fixFactor();
