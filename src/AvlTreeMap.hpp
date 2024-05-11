@@ -188,10 +188,10 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::in
     Node* curr = root_;
     Node* prev = nullptr;
 
-    while (curr != nullptr && key != curr->data_.key_)
+    while (curr != nullptr && key != curr->key_)
     {
         prev = curr;
-        curr = key < curr->data_.key_ ? curr->left_ : curr->right_;
+        curr = key < curr->key_ ? curr->left_ : curr->right_;
     }
 
     if (curr != nullptr)
@@ -200,7 +200,7 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::in
     }
 
     curr = new Node(std::forward<T>(key), std::forward<U>(value), prev);
-    (key < curr->parent_->data_.key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
+    (key < curr->parent_->key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
 
     root_ = root_->balance();
     return Iterator(root_, curr);

@@ -199,27 +199,27 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::insert(T
     }
 
     curr = new Node(std::forward<T>(rhs), prev);
-    (rhs < curr->parent_->key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
+    (curr->key_ < curr->parent_->key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
 
     root_ = root_->balance();
     return Iterator(root_, curr);
 }
 
 template <typename T>
-typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::search(const T& key) const
+typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::search(const T& rhs) const
 {
     Node* curr = root_;
 
-    while (curr != nullptr && key != curr->data_.key_)
+    while (curr != nullptr && rhs != curr->key_)
     {
-        curr = key < curr->key_ ? curr->left_ : curr->right_;
+        curr = rhs < curr->key_ ? curr->left_ : curr->right_;
     }
 
     return Iterator(root_, curr);
 }
 
 template <typename T>
-typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(const T& key)
+typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(const T& rhs)
 {
 
 }
