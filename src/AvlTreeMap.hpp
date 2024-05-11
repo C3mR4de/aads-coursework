@@ -13,7 +13,7 @@ namespace coursework
     class AvlTreeMap
     {
         using Node = detail::AvlTreeMapNode<T, U>;
-        using Data = Pair<T, U>;
+        using Data = Pair<const T&, U&>;
 
     public:
 
@@ -200,7 +200,7 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::in
     }
 
     curr = new Node(std::forward<T>(key), std::forward<U>(value), prev);
-    (key < curr->parent_->key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
+    (curr->key_ < curr->parent_->key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
 
     root_ = root_->balance();
     return Iterator(root_, curr);
@@ -211,9 +211,9 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::se
 {
     Node* curr = root_;
 
-    while (curr != nullptr && key != curr->data_.key_)
+    while (curr != nullptr && key != curr->key_)
     {
-        curr = key < curr->data_.key_ ? curr->left_ : curr->right_;
+        curr = key < curr->key_ ? curr->left_ : curr->right_;
     }
 
     return Iterator(root_, curr);

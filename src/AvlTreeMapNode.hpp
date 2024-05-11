@@ -11,10 +11,10 @@ namespace coursework
         template <typename T, typename U>
         struct AvlTreeMapNode
         {
-            Pair<const T, U> data_;
+            const T key_;
+            U value_;
 
-            const T& key_ = data_.key_;
-            U& value_ = data_.value_;
+            Pair<const T&, U&> data_ = Pair<const T&, U&>(key_, value_);
 
             AvlTreeMapNode* parent_;
             AvlTreeMapNode* left_;
@@ -42,7 +42,8 @@ coursework::detail::AvlTreeMapNode<T, U>::AvlTreeMapNode(T&& key,
                                                          AvlTreeMapNode* parent,
                                                          AvlTreeMapNode* left,
                                                          AvlTreeMapNode* right):
-    data_(std::forward<T>(key), std::forward<U>(value)),
+    key_(std::forward<T>(key)),
+    value_(std::forward<U>(value)),
     parent_(parent),
     left_(left),
     right_(right),

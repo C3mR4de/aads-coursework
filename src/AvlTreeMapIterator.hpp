@@ -2,6 +2,7 @@
 #define AVL_TREE_MAP_ITERATOR_HPP
 
 #include <iterator>
+#include "Pair.hpp"
 #include "AvlTreeMapNode.hpp"
 #include "IteratorStrategy.hpp"
 
@@ -15,7 +16,7 @@ namespace coursework
     {
         friend class AvlTreeMap<T, U>;
         using Node = detail::AvlTreeMapNode<T, U>;
-        using Data = Pair<const T, U>;
+        using Data = Pair<const T&, U&>;
 
     public:
 
@@ -98,7 +99,7 @@ typename coursework::AvlTreeMapIterator<T, U, S>::Data& coursework::AvlTreeMapIt
 template <typename T, typename U, typename S>
 const typename coursework::AvlTreeMapIterator<T, U, S>::Data& coursework::AvlTreeMapIterator<T, U, S>::operator*() const
 {
-    return node_->data_;
+    return **this;
 }
 
 template <typename T, typename U, typename S>
@@ -110,7 +111,7 @@ typename coursework::AvlTreeMapIterator<T, U, S>::Data* coursework::AvlTreeMapIt
 template <typename T, typename U, typename S>
 const typename coursework::AvlTreeMapIterator<T, U, S>::Data* coursework::AvlTreeMapIterator<T, U, S>::operator->() const
 {
-    return &node_->data_;
+    return &**this;
 }
 
 template <typename T, typename U, typename S>
