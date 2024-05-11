@@ -3,13 +3,14 @@
 
 #include <iterator>
 #include "AvlTreeSetNode.hpp"
+#include "IteratorStrategy.hpp"
 
 namespace coursework
 {
     template <typename T>
     class AvlTreeSet;
 
-    template <typename T>
+    template <typename T, typename S = detail::StraightStrategy<detail::AvlTreeSetNode<T>>>
     class AvlTreeSetIterator: std::iterator<std::bidirectional_iterator_tag, const T>
     {
         friend class AvlTreeSet<T>;
@@ -42,93 +43,68 @@ namespace coursework
     };
 }
 
-template <typename T>
-coursework::AvlTreeSetIterator<T>::AvlTreeSetIterator():
+template <typename T, typename S>
+coursework::AvlTreeSetIterator<T, S>::AvlTreeSetIterator():
     root_(nullptr),
     node_(nullptr)
 {}
 
-template <typename T>
-coursework::AvlTreeSetIterator<T>::AvlTreeSetIterator(Node* root, Node* node):
+template <typename T, typename S>
+coursework::AvlTreeSetIterator<T, S>::AvlTreeSetIterator(Node* root, Node* node):
     root_(root),
     node_(node)
 {}
 
-template <typename T>
-coursework::AvlTreeSetIterator<T>& coursework::AvlTreeSetIterator<T>::operator++()
+template <typename T, typename S>
+coursework::AvlTreeSetIterator<T, S>& coursework::AvlTreeSetIterator<T, S>::operator++()
 {
-    Node* curr = node_;
-
-    while (curr->right_ == nullptr || curr->key_ < node_->key_)
-    {
-        if (curr == root_ && (root_->right_ == nullptr || curr->key_ < node_->key_))
-        {
-            node_ = nullptr;
-            return *this;
-        }
-
-        curr = curr->parent_;
-
-        if (curr->key_ > node_->key_)
-        {
-            node_ = curr;
-            return *this;
-        }
-    }
-
-    curr = curr->right_;
-
-    while (curr->left_ != nullptr)
-    {
-        curr = curr->left_;
-    }
-
-    node_ = curr;
+    node_ = S::next(root_, node_);
     return *this;
 }
 
-template <typename T>
-coursework::AvlTreeSetIterator<T> coursework::AvlTreeSetIterator<T>::operator++(int)
+template <typename T, typename S>
+coursework::AvlTreeSetIterator<T, S> coursework::AvlTreeSetIterator<T, S>::operator++(int)
 {
-    AvlTreeSetIterator<T> temp(*this);
+    AvlTreeSetIterator<T, S> temp(*this);
     ++(*this);
     return temp;
 }
 
-template <typename T>
-coursework::AvlTreeSetIterator<T>& coursework::AvlTreeSetIterator<T>::operator--()
+template <typename T, typename S>
+coursework::AvlTreeSetIterator<T, S>& coursework::AvlTreeSetIterator<T, S>::operator--()
 {
-
+    node_ = S::prev(root_, node_);
+    return *this;
 }
 
-template <typename T>
-coursework::AvlTreeSetIterator<T> coursework::AvlTreeSetIterator<T>::operator--(int)
+template <typename T, typename S>
+coursework::AvlTreeSetIterator<T, S> coursework::AvlTreeSetIterator<T, S>::operator--(int)
 {
-    AvlTreeSetIterator<T> temp(*this);
+    AvlTreeSetIterator<T, S> temp(*this);
     --(*this);
     return temp;
 }
 
-template <typename T>
-const T& coursework::AvlTreeSetIterator<T>::operator*() const
+template <typename T, typename S>
+const T& coursework::AvlTreeSetIterator<T, S>::operator*() const
 {
     return node_->key_;
 }
 
-template <typename T>
-const T* coursework::AvlTreeSetIterator<T>::operator->() const
+template <typename T, typename S>
+const T* coursework::AvlTreeSetIterator<T, S>::operator->() const
 {
     return &node_->key_;
 }
 
-template <typename T>
-bool coursework::AvlTreeSetIterator<T>::operator==(const AvlTreeSetIterator& rhs) const
+template <typename T, typename S>
+bool coursework::AvlTreeSetIterator<T, S>::operator==(const AvlTreeSetIterator& rhs) const
 {
     return root_ == rhs.root_ && node_ == rhs.node_;
 }
 
-template <typename T>
-bool coursework::AvlTreeSetIterator<T>::operator!=(const AvlTreeSetIterator& rhs) const
+template <typename T, typename S>
+bool coursework::AvlTreeSetIterator<T, S>::operator!=(const AvlTreeSetIterator& rhs) const
 {
     return !(*this == rhs);
 }

@@ -5,7 +5,6 @@
 
 int main()
 {
-    /*
     coursework::AvlTreeSet<int> set;
 
     set.insert(3);
@@ -44,7 +43,6 @@ int main()
     {
         std::cout << i << "\n";
     }
-    */
 
     coursework::AvlTreeMap<std::string, int> map;
 
