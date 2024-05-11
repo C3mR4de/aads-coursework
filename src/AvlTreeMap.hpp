@@ -5,6 +5,7 @@
 #include <utility>
 #include "AvlTreeMapIterator.hpp"
 #include "AvlTreeMapNode.hpp"
+#include "IteratorStrategy.hpp"
 
 namespace coursework
 {
@@ -18,6 +19,8 @@ namespace coursework
 
         using Iterator = AvlTreeMapIterator<T, U>;
         using ConstIterator = AvlTreeMapIterator<T, const U>;
+        using ReverseIterator = AvlTreeMapIterator<T, U, detail::ReversedStrategy<detail::AvlTreeMapNode<T, const U>>>;
+        using ConstReverseIterator = AvlTreeMapIterator<T, const U, detail::ReversedStrategy<detail::AvlTreeMapNode<T, const U>>>;
 
         AvlTreeMap();
         AvlTreeMap(const AvlTreeMap&) = delete;
@@ -38,12 +41,12 @@ namespace coursework
         ConstIterator cbegin() const;
         ConstIterator cend() const;
 
-        Iterator rbegin();
-        Iterator rend();
-        ConstIterator rbegin() const;
-        ConstIterator rend() const;
-        ConstIterator crbegin() const;
-        ConstIterator crend() const;
+        ReverseIterator rbegin();
+        ReverseIterator rend();
+        ConstReverseIterator rbegin() const;
+        ConstReverseIterator rend() const;
+        ConstReverseIterator crbegin() const;
+        ConstReverseIterator crend() const;
 
         Iterator insert(T&& key, U&& value);
         Iterator search(const T& key) const;
@@ -128,6 +131,49 @@ template <typename T, typename U>
 typename coursework::AvlTreeMap<T, U>::ConstIterator coursework::AvlTreeMap<T, U>::cend() const
 {
     return end();
+}
+
+template <typename T, typename U>
+typename coursework::AvlTreeMap<T, U>::ReverseIterator coursework::AvlTreeMap<T, U>::rbegin()
+{
+    Node* res = root_;
+
+    while (res->right_ != nullptr)
+    {
+        res = res->right_;
+    }
+
+    return ReverseIterator(root_, res);
+}
+
+template <typename T, typename U>
+typename coursework::AvlTreeMap<T, U>::ReverseIterator coursework::AvlTreeMap<T, U>::rend()
+{
+    return ReverseIterator(root_, nullptr);
+}
+
+template <typename T, typename U>
+typename coursework::AvlTreeMap<T, U>::ConstReverseIterator coursework::AvlTreeMap<T, U>::rbegin() const
+{
+    return rbegin();
+}
+
+template <typename T, typename U>
+typename coursework::AvlTreeMap<T, U>::ConstReverseIterator coursework::AvlTreeMap<T, U>::rend() const
+{
+    return rend();
+}
+
+template <typename T, typename U>
+typename coursework::AvlTreeMap<T, U>::ConstReverseIterator coursework::AvlTreeMap<T, U>::crbegin() const
+{
+    return rbegin();
+}
+
+template <typename T, typename U>
+typename coursework::AvlTreeMap<T, U>::ConstReverseIterator coursework::AvlTreeMap<T, U>::crend() const
+{
+    return rend();
 }
 
 template <typename T, typename U>

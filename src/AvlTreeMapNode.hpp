@@ -13,6 +13,9 @@ namespace coursework
         {
             Pair<const T, U> data_;
 
+            const T& key_ = data_.key_;
+            U& value_ = data_.value_;
+
             AvlTreeMapNode* parent_;
             AvlTreeMapNode* left_;
             AvlTreeMapNode* right_;
