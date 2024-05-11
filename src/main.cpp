@@ -14,15 +14,33 @@ int main()
     set.insert(-100);
     set.insert(-1000);
 
+    for (auto i = set.begin(); i != set.end(); ++i)
+    {
+        std::cout << *i << "\n";
+    }
+
+    std::cout << "\n";
+
+    for (auto i = set.rbegin(); i != set.rend(); ++i)
+    {
+        std::cout << *i << "\n";
+    }
+
+    std::cout << "\n";
+
     for (const auto& i : set)
     {
         std::cout << i << "\n";
     }
 
+    std::cout << "\n";
+
     for (auto& i : set)
     {
         std::cout << i << "\n";
     }
+
+    std::cout << "\n";
 
     coursework::AvlTreeSet<std::string> setstr;
 
@@ -34,16 +52,35 @@ int main()
     setstr.insert("aramzamzam");
     setstr.insert(std::move(existing));
 
+    for (auto i = setstr.begin(); i != setstr.end(); ++i)
+    {
+        std::cout << *i << "\n";
+    }
+
+    std::cout << "\n";
+
+    for (auto i = setstr.rbegin(); i != setstr.rend(); ++i)
+    {
+        std::cout << *i << "\n";
+    }
+
+    std::cout << "\n";
+
     for (const auto& i : setstr)
     {
         std::cout << i << "\n";
     }
+
+    std::cout << "\n";
 
     for (auto& i : setstr)
     {
         std::cout << i << "\n";
     }
 
+    std::cout << "\n";
+
+    /*
     coursework::AvlTreeMap<std::string, int> map;
 
     map.insert("dsd", 3);
@@ -53,17 +90,38 @@ int main()
     map.insert("-----fwfeeauto", 2000);
     map.insert("а че такое?", 0);
 
-    for (const auto& i : map)
+    for (auto i = map.begin(); i != map.end(); ++i)
+    {
+        std::cout << i->key_ << " " << i->value_ << "\n";
+    }
+
+    for (auto i = map.cbegin(); i != map.cend(); ++i)
+    {
+        std::cout << i->key_ << " " << i->value_ << "\n";
+    }
+
+    for (auto& i : map)
     {
         std::cout << i.key_ << " " << i.value_ << "\n";
     }
 
+    for (const auto& i : map)
+    {
+        std::cout << i.key_ << " " << i.value_ << "\n";
+    }
+    */
+
     /*
-    for (auto i = map.crbegin(); i != map.crend(); --i)
+    for (auto i = map.rbegin(); i != map.rend(); ++i)
     {
         std::cout << i->key_ << " " << i->value_ << "\n";
     }
-    */
+
+    for (auto i = map.crbegin(); i != map.crend(); ++i)
+    {
+        std::cout << i->key_ << " " << i->value_ << "\n";
+    }
+
 
     for (auto& i : map)
     {
@@ -73,6 +131,7 @@ int main()
 
     auto res = map.search("dsd");
     std::cout << (res != map.end() ? res->value_ : 0) << "\n";
+    */
 
     return 0;
 }

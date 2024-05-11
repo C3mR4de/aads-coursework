@@ -17,9 +17,7 @@ namespace coursework
     public:
 
         using Iterator = AvlTreeSetIterator<T>;
-        using ConstIterator = Iterator;
         using ReverseIterator = AvlTreeSetIterator<T, detail::ReversedStrategy<detail::AvlTreeSetNode<T>>>;
-        using ConstReverseIterator = ReverseIterator;
 
         AvlTreeSet();
         AvlTreeSet(const AvlTreeSet&) = delete;
@@ -33,19 +31,11 @@ namespace coursework
 
         virtual ~AvlTreeSet() noexcept;
 
-        Iterator begin();
-        Iterator end();
-        ConstIterator begin() const;
-        ConstIterator end() const;
-        ConstIterator cbegin() const;
-        ConstIterator cend() const;
+        Iterator begin() const;
+        Iterator end() const;
 
-        ReverseIterator rbegin();
-        ReverseIterator rend();
-        ConstReverseIterator rbegin() const;
-        ConstReverseIterator rend() const;
-        ConstReverseIterator crbegin() const;
-        ConstReverseIterator crend() const;
+        ReverseIterator rbegin() const;
+        ReverseIterator rend() const;
 
         Iterator insert(T&& rhs);
         Iterator search(const T& rhs) const;
@@ -90,7 +80,7 @@ coursework::AvlTreeSet<T>::~AvlTreeSet() noexcept
 }
 
 template <typename T>
-typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::begin()
+typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::begin() const
 {
     Node* res = root_;
 
@@ -103,37 +93,13 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::begin()
 }
 
 template <typename T>
-typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::end()
+typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::end() const
 {
     return Iterator(root_, nullptr);
 }
 
 template <typename T>
-typename coursework::AvlTreeSet<T>::ConstIterator coursework::AvlTreeSet<T>::begin() const
-{
-    return begin();
-}
-
-template <typename T>
-typename coursework::AvlTreeSet<T>::ConstIterator coursework::AvlTreeSet<T>::end() const
-{
-    return end();
-}
-
-template <typename T>
-typename coursework::AvlTreeSet<T>::ConstIterator coursework::AvlTreeSet<T>::cbegin() const
-{
-    return begin();
-}
-
-template <typename T>
-typename coursework::AvlTreeSet<T>::ConstIterator coursework::AvlTreeSet<T>::cend() const
-{
-    return end();
-}
-
-template <typename T>
-typename coursework::AvlTreeSet<T>::ReverseIterator coursework::AvlTreeSet<T>::rbegin()
+typename coursework::AvlTreeSet<T>::ReverseIterator coursework::AvlTreeSet<T>::rbegin() const
 {
     Node* res = root_;
 
@@ -146,33 +112,9 @@ typename coursework::AvlTreeSet<T>::ReverseIterator coursework::AvlTreeSet<T>::r
 }
 
 template <typename T>
-typename coursework::AvlTreeSet<T>::ReverseIterator coursework::AvlTreeSet<T>::rend()
+typename coursework::AvlTreeSet<T>::ReverseIterator coursework::AvlTreeSet<T>::rend() const
 {
     return ReverseIterator(root_, nullptr);
-}
-
-template <typename T>
-typename coursework::AvlTreeSet<T>::ConstReverseIterator coursework::AvlTreeSet<T>::rbegin() const
-{
-    return rbegin();
-}
-
-template <typename T>
-typename coursework::AvlTreeSet<T>::ConstReverseIterator coursework::AvlTreeSet<T>::rend() const
-{
-    return rend();
-}
-
-template <typename T>
-typename coursework::AvlTreeSet<T>::ConstReverseIterator coursework::AvlTreeSet<T>::crbegin() const
-{
-    return rbegin();
-}
-
-template <typename T>
-typename coursework::AvlTreeSet<T>::ConstReverseIterator coursework::AvlTreeSet<T>::crend() const
-{
-    return rend();
 }
 
 template <typename T>
