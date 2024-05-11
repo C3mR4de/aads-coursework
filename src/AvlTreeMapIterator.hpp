@@ -62,34 +62,6 @@ coursework::AvlTreeMapIterator<T, U, S>::AvlTreeMapIterator(Node* root, Node* no
 template <typename T, typename U, typename S>
 coursework::AvlTreeMapIterator<T, U, S>& coursework::AvlTreeMapIterator<T, U, S>::operator++()
 {
-    /*
-    Node* curr = node_;
-
-    while (curr->right_ == nullptr || curr->data_.key_ < node_->data_.key_)
-    {
-        if (curr == root_ && (root_->right_ == nullptr || curr->data_.key_ < node_->data_.key_))
-        {
-            node_ = nullptr;
-            return *this;
-        }
-
-        curr = curr->parent_;
-
-        if (curr->data_.key_ > node_->data_.key_)
-        {
-            node_ = curr;
-            return *this;
-        }
-    }
-
-    curr = curr->right_;
-
-    while (curr->left_ != nullptr)
-    {
-        curr = curr->left_;
-    }
-
-    node_ = curr;*/
     node_ = S::next(root_, node_);
     return *this;
 }
