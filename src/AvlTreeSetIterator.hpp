@@ -3,14 +3,14 @@
 
 #include <iterator>
 #include "AvlTreeSetNode.hpp"
-#include "IteratorStrategy.hpp"
+#include "AvlTreeTraverseStrategy.hpp"
 
 namespace coursework
 {
     template <typename T>
     class AvlTreeSet;
 
-    template <typename T, typename S = detail::StraightStrategy<detail::AvlTreeSetNode<T>>>
+    template <typename T, typename S = detail::StraightInfixTraverse<detail::AvlTreeSetNode<T>>>
     class AvlTreeSetIterator: std::iterator<std::bidirectional_iterator_tag, const T>
     {
         friend class AvlTreeSet<T>;

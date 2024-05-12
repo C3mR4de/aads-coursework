@@ -1,5 +1,5 @@
-#ifndef ITERATOR_STRATEGY_HPP
-#define ITERATOR_STRATEGY_HPP
+#ifndef AVL_TREE_TRAVERSE_STRATEGY_HPP
+#define AVL_TREE_TRAVERSE_STRATEGY_HPP
 
 namespace coursework
 {
@@ -12,14 +12,14 @@ namespace coursework
         T* stepBackward(T* root, T* node);
 
         template <typename T>
-        struct StraightStrategy
+        struct StraightInfixTraverse
         {
             static T* next(T* root, T* node);
             static T* prev(T* root, T* node);
         };
 
         template <typename T>
-        struct ReversedStrategy
+        struct ReversedInfixTraverse
         {
             static T* next(T* root, T* node);
             static T* prev(T* root, T* node);
@@ -88,27 +88,27 @@ T* coursework::detail::stepBackward(T* root, T* node)
 }
 
 template <typename T>
-T* coursework::detail::StraightStrategy<T>::next(T* root, T* node)
+T* coursework::detail::StraightInfixTraverse<T>::next(T* root, T* node)
 {
     return stepForward(root, node);
 }
 
 template <typename T>
-T* coursework::detail::StraightStrategy<T>::prev(T* root, T* node)
+T* coursework::detail::StraightInfixTraverse<T>::prev(T* root, T* node)
 {
     return stepBackward(root, node);
 }
 
 template <typename T>
-T* coursework::detail::ReversedStrategy<T>::next(T* root, T* node)
+T* coursework::detail::ReversedInfixTraverse<T>::next(T* root, T* node)
 {
     return stepBackward(root, node);
 }
 
 template <typename T>
-T* coursework::detail::ReversedStrategy<T>::prev(T* root, T* node)
+T* coursework::detail::ReversedInfixTraverse<T>::prev(T* root, T* node)
 {
     return stepForward(root, node);
 }
 
-#endif // ITERATOR_STRATEGY_HPP
+#endif // AVL_TREE_TRAVERSE_STRATEGY_HPP

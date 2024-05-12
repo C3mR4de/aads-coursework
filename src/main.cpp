@@ -1,4 +1,3 @@
-#include "AvlTreeMap.hpp"
 #include "AvlTreeSet.hpp"
 #include <string>
 #include <iostream>
@@ -21,7 +20,21 @@ int main()
 
     std::cout << "\n";
 
+    for (auto i = set.cbegin(); i != set.cend(); ++i)
+    {
+        std::cout << *i << "\n";
+    }
+
+    std::cout << "\n";
+
     for (auto i = set.rbegin(); i != set.rend(); ++i)
+    {
+        std::cout << *i << "\n";
+    }
+
+    std::cout << "\n";
+
+    for (auto i = set.crbegin(); i != set.crend(); ++i)
     {
         std::cout << *i << "\n";
     }
