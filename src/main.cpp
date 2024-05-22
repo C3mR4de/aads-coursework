@@ -101,7 +101,7 @@ int main()
     map.insert("super", -10);
     map.insert("auto", 100);
     map.insert("-----fwfeeauto", 2000);
-    map.insert("а че такое?", 0);
+    map.insert("русский текст", 0);
 
     for (auto i = map.begin(); i != map.end(); ++i)
     {
@@ -122,9 +122,7 @@ int main()
     {
         std::cout << i.key_ << " " << i.value_ << "\n";
     }
-    */
 
-    /*
     for (auto i = map.rbegin(); i != map.rend(); ++i)
     {
         std::cout << i->key_ << " " << i->value_ << "\n";
@@ -135,15 +133,14 @@ int main()
         std::cout << i->key_ << " " << i->value_ << "\n";
     }
 
+    auto res = map.search("dsd");
+    std::cout << (res != map.end() ? res->value_ : 0) << "\n";
 
     for (auto& i : map)
     {
         i.value_ = 4324;
         std::cout << i.key_ << " " << i.value_ << "\n";
     }
-
-    auto res = map.search("dsd");
-    std::cout << (res != map.end() ? res->value_ : 0) << "\n";
     */
 
     return 0;
