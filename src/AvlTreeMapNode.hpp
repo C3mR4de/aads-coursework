@@ -109,7 +109,6 @@ coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, 
         }
 
         return rotateLeft();
-
     }
 
     if (factor_ == -2)
@@ -120,7 +119,6 @@ coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, 
         }
 
         return rotateRight();
-
     }
 
     return this;

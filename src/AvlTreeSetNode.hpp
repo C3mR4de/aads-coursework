@@ -93,6 +93,7 @@ template <typename T>
 coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::balance() noexcept
 {
     fixFactor();
+
     if (factor_ == 2)
     {
         if (right_ == nullptr ? factor_ + 1 : right_->factor_ < 0)
@@ -111,7 +112,6 @@ coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::ba
         }
 
         return rotateRight();
-
     }
 
     return this;
