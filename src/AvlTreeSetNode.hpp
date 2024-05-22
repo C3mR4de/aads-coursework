@@ -47,8 +47,8 @@ template <typename T>
 void coursework::detail::AvlTreeSetNode<T>::fixFactor() noexcept
 {
     int factorLeft = left_ == nullptr ? factor_ - 1 : left_->factor_;
-	int factorRight = right_ == nullptr ? factor_ + 1 : right_->factor_;
-	factor_ = (factorLeft > factorRight ? factorLeft : factorRight) + 1;
+    int factorRight = right_ == nullptr ? factor_ + 1 : right_->factor_;
+    factor_ = (factorLeft > factorRight ? factorLeft : factorRight) + 1;
 }
 
 template <typename T>
@@ -93,28 +93,28 @@ template <typename T>
 coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::balance() noexcept
 {
     fixFactor();
-
-	if (factor_ == 2)
-	{
-		if (right_ == nullptr ? factor_ + 1 : right_->factor_ < 0)
+    if (factor_ == 2)
+    {
+        if (right_ == nullptr ? factor_ + 1 : right_->factor_ < 0)
         {
-			right_ = right_->rotateRight();
+            right_ = right_->rotateRight();
         }
 
         return rotateLeft();
-	}
+    }
 
-	if (factor_ == -2)
-	{
-		if (left_ == nullptr ? factor_ - 1 : left_->factor_ > 0)
+    if (factor_ == -2)
+    {
+        if (left_ == nullptr ? factor_ - 1 : left_->factor_ > 0)
         {
-			left_ = left_->rotateLeft();
+            left_ = left_->rotateLeft();
         }
 
         return rotateRight();
-	}
 
-	return this;
+    }
+
+    return this;
 }
 
 #endif // AVL_TREE_SET_NODE_HPP
