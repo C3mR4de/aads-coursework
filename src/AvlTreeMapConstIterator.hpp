@@ -111,4 +111,4 @@ bool coursework::AvlTreeMapConstIterator<T, U, S>::operator!=(const AvlTreeMapCo
     return !(*this == rhs);
 }
 
-#endif // AVL_TREE_MAP_ITERATOR_HPP
+#endif // AVL_TREE_MAP_CONST_ITERATOR_HPP
