@@ -4,6 +4,7 @@
 #include <initializer_list>
 #include <utility>
 #include "AvlTreeMapIterator.hpp"
+#include "AvlTreeMapConstIterator.hpp"
 #include "AvlTreeMapNode.hpp"
 #include "AvlTreeTraverseStrategy.hpp"
 
@@ -13,15 +14,13 @@ namespace coursework
     class AvlTreeMap
     {
         using Node = detail::AvlTreeMapNode<T, U>;
-        using ConstNode = detail::AvlTreeMapNode<T, const U>;
-        using Data = Pair<const T&, U&>;
 
     public:
 
         using Iterator = AvlTreeMapIterator<T, U>;
-        using ConstIterator = AvlTreeMapIterator<T, const U, detail::StraightInfixTraverse<ConstNode>>;
+        using ConstIterator = AvlTreeMapConstIterator<T, U, detail::StraightInfixTraverse<Node>>;
         using ReverseIterator = AvlTreeMapIterator<T, U, detail::ReversedInfixTraverse<Node>>;
-        using ConstReverseIterator = AvlTreeMapIterator<T, const U, detail::ReversedInfixTraverse<Node>>;
+        using ConstReverseIterator = AvlTreeMapConstIterator<T, U, detail::ReversedInfixTraverse<Node>>;
 
         AvlTreeMap();
         AvlTreeMap(const AvlTreeMap&) = delete;
@@ -163,7 +162,7 @@ typename coursework::AvlTreeMap<T, U>::ReverseIterator coursework::AvlTreeMap<T,
 template <typename T, typename U>
 typename coursework::AvlTreeMap<T, U>::ConstReverseIterator coursework::AvlTreeMap<T, U>::crbegin() const
 {
-    ConstNode* res = root_;
+    Node* res = root_;
 
     while (res->right_ != nullptr)
     {

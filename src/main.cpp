@@ -1,10 +1,13 @@
 #include "AvlTreeSet.hpp"
+#include "AvlTreeMap.hpp"
 #include <string>
 #include <iostream>
 
 int main()
 {
-    coursework::AvlTreeSet<int> set;
+    using namespace coursework;
+
+    AvlTreeSet<int> set;
 
     set.insert(3);
     set.insert(5);
@@ -55,7 +58,7 @@ int main()
 
     std::cout << "\n";
 
-    coursework::AvlTreeSet<std::string> setstr;
+    AvlTreeSet<std::string> setstr;
 
     std::string existing = "existing";
 
@@ -93,8 +96,7 @@ int main()
 
     std::cout << "\n";
 
-    /*
-    coursework::AvlTreeMap<std::string, int> map;
+    AvlTreeMap<std::string, int> map;
 
     map.insert("dsd", 3);
     map.insert("dadad", 16);
@@ -141,7 +143,6 @@ int main()
         i.value_ = 4324;
         std::cout << i.key_ << " " << i.value_ << "\n";
     }
-    */
 
     return 0;
 }
