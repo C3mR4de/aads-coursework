@@ -98,12 +98,15 @@ int main()
 
     AvlTreeMap<std::string, int> map;
 
+    std::string existing2 = "existing2";
+
     map.insert("dsd", 3);
     map.insert("dadad", 16);
     map.insert("super", -10);
     map.insert("auto", 100);
     map.insert("-----fwfeeauto", 2000);
     map.insert("русский текст", 0);
+    map.insert(std::move(existing2), 12345);
 
     for (auto i = map.begin(); i != map.end(); ++i)
     {
