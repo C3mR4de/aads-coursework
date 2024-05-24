@@ -1,7 +1,8 @@
 #include "AvlTreeSet.hpp"
 #include "AvlTreeMap.hpp"
-#include <string>
+#include "EngRusDictionary.hpp"
 #include <iostream>
+#include <string>
 
 int main()
 {
@@ -157,6 +158,24 @@ int main()
         i.value_ = 4324;
         std::cout << i.key_ << " " << i.value_ << "\n";
     }
+
+    EngRusDictionary engrus;
+
+    std::cout << engrus.insert("good", "хорошо") << "\n";
+    std::cout << engrus.insert("good", "хороший") << "\n";
+    std::cout << engrus.insert("good", "товар") << "\n";
+
+    std::cout << engrus.insert("bad", "плохо") << "\n";
+    std::cout << engrus.insert("direct", "направление") << "\n";
+    std::cout << engrus.insert("direct", "направление") << "\n";
+
+    for (auto it = engrus.search("good").cbegin(); it != engrus.search("good").cend(); ++it)
+    {
+        std::cout << *it << "\n";
+    }
+
+    std::cout << engrus.remove("good") << "\n";
+    std::cout << engrus.remove("good") << "\n";
 
     return 0;
 }
