@@ -10,7 +10,7 @@ namespace coursework
         template <typename T>
         struct AvlTreeSetNode
         {
-            const T key_;
+            T key_;
 
             AvlTreeSetNode* parent_;
             AvlTreeSetNode* left_;

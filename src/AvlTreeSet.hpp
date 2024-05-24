@@ -193,7 +193,74 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::search(c
 template <typename T>
 typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(const T& rhs)
 {
+    Node* curr = root_;
 
+    while (curr != nullptr && rhs != curr->key_)
+    {
+        curr = rhs < curr->key_ ? curr->left_ : curr->right_;
+    }
+
+    if (curr == nullptr)
+    {
+        return end();
+    }
+
+    Node* res = curr->right_;
+
+    if (curr->left_ == nullptr && curr->right_ == nullptr)
+    {
+        if (curr != root_)
+        {
+            (curr == curr->parent_->left_ ? curr->parent_->left_ : curr->parent_->right_) = nullptr;
+        }
+        else
+        {
+            root_ = nullptr;
+        }
+    }
+    else if (curr->left_ == nullptr || curr->right_ == nullptr)
+    {
+        Node* const currChild = curr->left_ != nullptr ? curr->left_ : curr->right_;
+
+        if (curr == root_)
+        {
+            currChild->parent_ = nullptr;
+            root_ = currChild;
+        }
+        else
+        {
+            currChild->parent_ = curr->parent_;
+            (curr == curr->parent_->left_ ? curr->parent_->left_ : curr->parent_->right_) = currChild;
+        }
+    }
+    else
+    {
+        Node* prev = nullptr;
+        Node* const temp = curr;
+
+        curr = curr->right_;
+
+        while (curr->left_ != nullptr)
+        {
+            prev = curr;
+            curr = curr->left_;
+        }
+
+        const bool hasAnyChildren = prev != nullptr;
+
+        (hasAnyChildren ? prev->left_ : temp->right_) = curr->right_;
+
+        if (curr->right_ != nullptr)
+        {
+            curr->right_->parent_ = hasAnyChildren ? prev : temp;
+        }
+
+        temp->key_ = curr->key_;
+    }
+
+    delete curr;
+    root_ = root_->balance();
+    return Iterator(root_, res);
 }
 
 template <typename T>
