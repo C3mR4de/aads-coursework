@@ -16,6 +16,10 @@ int main()
     set.insert(-100);
     set.insert(-1000);
 
+    set.remove(-1000);
+    set.remove(20);
+    set.remove(5);
+
     for (auto i = set.begin(); i != set.end(); ++i)
     {
         std::cout << *i << "\n";
@@ -67,6 +71,9 @@ int main()
     setstr.insert("parampampam");
     setstr.insert("aramzamzam");
     setstr.insert(std::move(existing));
+
+    setstr.remove("aramzamzam");
+    setstr.remove("parampampam");
 
     for (auto i = setstr.begin(); i != setstr.end(); ++i)
     {
