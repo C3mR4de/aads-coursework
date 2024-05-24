@@ -113,7 +113,11 @@ int main()
     map.insert("auto", 100);
     map.insert("-----fwfeeauto", 2000);
     map.insert("русский текст", 0);
+    map.insert("русский текст222", 123);
     map.insert(std::move(existing2), 12345);
+
+    map.remove("dsd");
+    map.remove("русский текст222");
 
     for (auto i = map.begin(); i != map.end(); ++i)
     {

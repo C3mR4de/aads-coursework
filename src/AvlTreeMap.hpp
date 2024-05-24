@@ -50,7 +50,7 @@ namespace coursework
 
         Iterator insert(T&& key, U&& value);
         Iterator search(const T& key) const;
-        Iterator remove(const T& key, const T& value);
+        Iterator remove(const T& key);
 
     private:
 
@@ -234,9 +234,76 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::se
 }
 
 template <typename T, typename U>
-typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::remove(const T& key, const T& value)
+typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::remove(const T& key)
 {
+    Node* curr = root_;
 
+    while (curr != nullptr && key != curr->key_)
+    {
+        curr = key < curr->key_ ? curr->left_ : curr->right_;
+    }
+
+    if (curr == nullptr)
+    {
+        return end();
+    }
+
+    Node* res = curr->right_;
+
+    if (curr->left_ == nullptr && curr->right_ == nullptr)
+    {
+        if (curr != root_)
+        {
+            (curr == curr->parent_->left_ ? curr->parent_->left_ : curr->parent_->right_) = nullptr;
+        }
+        else
+        {
+            root_ = nullptr;
+        }
+    }
+    else if (curr->left_ == nullptr || curr->right_ == nullptr)
+    {
+        Node* const currChild = curr->left_ != nullptr ? curr->left_ : curr->right_;
+
+        if (curr == root_)
+        {
+            currChild->parent_ = nullptr;
+            root_ = currChild;
+        }
+        else
+        {
+            currChild->parent_ = curr->parent_;
+            (curr == curr->parent_->left_ ? curr->parent_->left_ : curr->parent_->right_) = currChild;
+        }
+    }
+    else
+    {
+        Node* prev = nullptr;
+        Node* const temp = curr;
+
+        curr = curr->right_;
+
+        while (curr->left_ != nullptr)
+        {
+            prev = curr;
+            curr = curr->left_;
+        }
+
+        const bool hasAnyChildren = prev != nullptr;
+
+        (hasAnyChildren ? prev->left_ : temp->right_) = curr->right_;
+
+        if (curr->right_ != nullptr)
+        {
+            curr->right_->parent_ = hasAnyChildren ? prev : temp;
+        }
+
+        temp->key_ = curr->key_;
+    }
+
+    delete curr;
+    root_ = root_->balance();
+    return Iterator(root_, res);
 }
 
 template <typename T, typename U>

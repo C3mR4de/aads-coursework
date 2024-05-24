@@ -11,7 +11,7 @@ namespace coursework
         template <typename T, typename U>
         struct AvlTreeMapNode
         {
-            const T key_;
+            T key_;
             U value_;
 
             Pair<const T&, U&> data_ = Pair<const T&, U&>(key_, value_);
