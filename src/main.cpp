@@ -122,41 +122,41 @@ int main()
 
     for (auto i = map.begin(); i != map.end(); ++i)
     {
-        std::cout << i->key_ << " " << i->value_ << "\n";
+        std::cout << i->first << " " << i->second << "\n";
     }
 
     for (auto i = map.cbegin(); i != map.cend(); ++i)
     {
-        std::cout << i->key_ << " " << i->value_ << "\n";
+        std::cout << i->first << " " << i->second << "\n";
     }
 
     for (auto& i : map)
     {
-        std::cout << i.key_ << " " << i.value_ << "\n";
+        std::cout << i.first << " " << i.second << "\n";
     }
 
     for (const auto& i : map)
     {
-        std::cout << i.key_ << " " << i.value_ << "\n";
+        std::cout << i.first << " " << i.second << "\n";
     }
 
     for (auto i = map.rbegin(); i != map.rend(); ++i)
     {
-        std::cout << i->key_ << " " << i->value_ << "\n";
+        std::cout << i->first << " " << i->second << "\n";
     }
 
     for (auto i = map.crbegin(); i != map.crend(); ++i)
     {
-        std::cout << i->key_ << " " << i->value_ << "\n";
+        std::cout << i->first << " " << i->second << "\n";
     }
 
     auto res = map.search("dsd");
-    std::cout << (res != map.end() ? res->value_ : 0) << "\n";
+    std::cout << (res != map.end() ? res->second : 0) << "\n";
 
     for (auto& i : map)
     {
-        i.value_ = 4324;
-        std::cout << i.key_ << " " << i.value_ << "\n";
+        i.second = 4324;
+        std::cout << i.first << " " << i.second << "\n";
     }
 
     EngRusDictionary engrus;

@@ -2,7 +2,7 @@
 #define AVL_TREE_MAP_ITERATOR_HPP
 
 #include <iterator>
-#include "Pair.hpp"
+#include <utility>
 #include "AvlTreeMapNode.hpp"
 #include "AvlTreeTraverseStrategy.hpp"
 
@@ -16,7 +16,7 @@ namespace coursework
     {
         friend class AvlTreeMap<T, U>;
         using Node = detail::AvlTreeMapNode<T, U>;
-        using Data = Pair<const T&, U&>;
+        using Data = std::pair<const T&, U&>;
 
     public:
 

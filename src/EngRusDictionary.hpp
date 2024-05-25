@@ -24,7 +24,7 @@ namespace coursework
 
         ~EngRusDictionary() noexcept = default;
 
-        bool insert(std::string&& key, std::string&& value);
+        bool insert(std::string key, std::string value);
         const Subdict& search(const std::string& rhs);
         bool remove(const std::string& rhs);
 

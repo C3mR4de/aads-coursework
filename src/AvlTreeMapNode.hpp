@@ -2,7 +2,6 @@
 #define AVL_TREE_MAP_NODE_HPP
 
 #include <utility>
-#include "Pair.hpp"
 
 namespace coursework
 {
@@ -14,8 +13,8 @@ namespace coursework
             T key_;
             U value_;
 
-            Pair<const T&, U&> data_ = Pair<const T&, U&>(key_, value_);
-            Pair<const T&, const U&> constData_ = Pair<const T&, const U&>(key_, value_);
+            std::pair<const T&, U&> data_ = {key_, value_};
+            std::pair<const T&, const U&> constData_ = {key_, value_};
 
             AvlTreeMapNode* parent_;
             AvlTreeMapNode* left_;

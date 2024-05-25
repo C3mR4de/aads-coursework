@@ -10,7 +10,7 @@ namespace coursework
         template <typename T>
         struct AvlTreeSetNode
         {
-            T key_;
+            const T key_;
 
             AvlTreeSetNode* parent_;
             AvlTreeSetNode* left_;
@@ -36,7 +36,7 @@ coursework::detail::AvlTreeSetNode<T>::AvlTreeSetNode(T&& key,
                                                       AvlTreeSetNode* parent,
                                                       AvlTreeSetNode* left,
                                                       AvlTreeSetNode* right):
-    key_(std::forward<T>(key)),
+    key_(std::move(key)),
     parent_(parent),
     left_(left),
     right_(right),

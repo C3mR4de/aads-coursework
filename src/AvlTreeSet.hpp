@@ -43,7 +43,7 @@ namespace coursework
         ConstReverseIterator crbegin() const;
         ConstReverseIterator crend() const;
 
-        Iterator insert(T&& rhs);
+        Iterator insert(T rhs);
         Iterator search(const T& rhs) const;
         Iterator remove(const T& rhs);
 
@@ -148,11 +148,11 @@ typename coursework::AvlTreeSet<T>::ConstReverseIterator coursework::AvlTreeSet<
 }
 
 template <typename T>
-typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::insert(T&& rhs)
+typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::insert(T rhs)
 {
     if (root_ == nullptr)
     {
-        root_ = new Node(std::forward<T>(rhs));
+        root_ = new Node(std::move(rhs));
         return begin();
     }
 
@@ -170,7 +170,7 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::insert(T
         return end();
     }
 
-    curr = new Node(std::forward<T>(rhs), prev);
+    curr = new Node(std::move(rhs), prev);
     (curr->key_ < curr->parent_->key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
 
     root_ = root_->balance();
@@ -255,7 +255,7 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
             curr->right_->parent_ = hasAnyChildren ? prev : temp;
         }
 
-        temp->key_ = curr->key_;
+        *const_cast<T*>(&temp->key_) = std::move(curr->key_);
     }
 
     delete curr;
