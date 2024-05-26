@@ -10,60 +10,63 @@ namespace coursework
     template <typename T>
     class AvlTreeSet;
 
-    template <typename T, typename S = detail::StraightInfixTraverse<detail::AvlTreeSetNode<T>>>
-    class AvlTreeSetIterator: std::iterator<std::bidirectional_iterator_tag, const T>
+    namespace detail
     {
-        friend class AvlTreeSet<T>;
-        using Node = detail::AvlTreeSetNode<T>;
+        template <typename T, typename S = StraightInfixTraverse<AvlTreeSetNode<T>>>
+        class AvlTreeSetIterator: std::iterator<std::bidirectional_iterator_tag, const T>
+        {
+            friend class AvlTreeSet<T>;
+            using Node = detail::AvlTreeSetNode<T>;
 
-    public:
+        public:
 
-        AvlTreeSetIterator();
-        AvlTreeSetIterator(const AvlTreeSetIterator&) = default;
-        ~AvlTreeSetIterator() = default;
+            AvlTreeSetIterator();
+            AvlTreeSetIterator(const AvlTreeSetIterator&) = default;
+            ~AvlTreeSetIterator() = default;
 
-        AvlTreeSetIterator& operator=(const AvlTreeSetIterator&) = default;
+            AvlTreeSetIterator& operator=(const AvlTreeSetIterator&) = default;
 
-        AvlTreeSetIterator& operator++();
-        AvlTreeSetIterator operator++(int);
-        AvlTreeSetIterator& operator--();
-        AvlTreeSetIterator operator--(int);
+            AvlTreeSetIterator& operator++();
+            AvlTreeSetIterator operator++(int);
+            AvlTreeSetIterator& operator--();
+            AvlTreeSetIterator operator--(int);
 
-        const T& operator*() const;
-        const T* operator->() const;
+            const T& operator*() const;
+            const T* operator->() const;
 
-        bool operator==(const AvlTreeSetIterator& rhs) const;
-        bool operator!=(const AvlTreeSetIterator& rhs) const;
+            bool operator==(const AvlTreeSetIterator& rhs) const;
+            bool operator!=(const AvlTreeSetIterator& rhs) const;
 
-    private:
+        private:
 
-        Node* root_;
-        Node* node_;
-        explicit AvlTreeSetIterator(Node* root, Node* node);
-    };
+            Node* root_;
+            Node* node_;
+            explicit AvlTreeSetIterator(Node* root, Node* node);
+        };
+    }
 }
 
 template <typename T, typename S>
-coursework::AvlTreeSetIterator<T, S>::AvlTreeSetIterator():
+coursework::detail::AvlTreeSetIterator<T, S>::AvlTreeSetIterator():
     root_(nullptr),
     node_(nullptr)
 {}
 
 template <typename T, typename S>
-coursework::AvlTreeSetIterator<T, S>::AvlTreeSetIterator(Node* root, Node* node):
+coursework::detail::AvlTreeSetIterator<T, S>::AvlTreeSetIterator(Node* root, Node* node):
     root_(root),
     node_(node)
 {}
 
 template <typename T, typename S>
-coursework::AvlTreeSetIterator<T, S>& coursework::AvlTreeSetIterator<T, S>::operator++()
+coursework::detail::AvlTreeSetIterator<T, S>& coursework::detail::AvlTreeSetIterator<T, S>::operator++()
 {
     node_ = S::next(root_, node_);
     return *this;
 }
 
 template <typename T, typename S>
-coursework::AvlTreeSetIterator<T, S> coursework::AvlTreeSetIterator<T, S>::operator++(int)
+coursework::detail::AvlTreeSetIterator<T, S> coursework::detail::AvlTreeSetIterator<T, S>::operator++(int)
 {
     AvlTreeSetIterator<T, S> temp(*this);
     ++(*this);
@@ -71,14 +74,14 @@ coursework::AvlTreeSetIterator<T, S> coursework::AvlTreeSetIterator<T, S>::opera
 }
 
 template <typename T, typename S>
-coursework::AvlTreeSetIterator<T, S>& coursework::AvlTreeSetIterator<T, S>::operator--()
+coursework::detail::AvlTreeSetIterator<T, S>& coursework::detail::AvlTreeSetIterator<T, S>::operator--()
 {
     node_ = S::prev(root_, node_);
     return *this;
 }
 
 template <typename T, typename S>
-coursework::AvlTreeSetIterator<T, S> coursework::AvlTreeSetIterator<T, S>::operator--(int)
+coursework::detail::AvlTreeSetIterator<T, S> coursework::detail::AvlTreeSetIterator<T, S>::operator--(int)
 {
     AvlTreeSetIterator<T, S> temp(*this);
     --(*this);
@@ -86,25 +89,25 @@ coursework::AvlTreeSetIterator<T, S> coursework::AvlTreeSetIterator<T, S>::opera
 }
 
 template <typename T, typename S>
-const T& coursework::AvlTreeSetIterator<T, S>::operator*() const
+const T& coursework::detail::AvlTreeSetIterator<T, S>::operator*() const
 {
     return node_->key_;
 }
 
 template <typename T, typename S>
-const T* coursework::AvlTreeSetIterator<T, S>::operator->() const
+const T* coursework::detail::AvlTreeSetIterator<T, S>::operator->() const
 {
     return &node_->key_;
 }
 
 template <typename T, typename S>
-bool coursework::AvlTreeSetIterator<T, S>::operator==(const AvlTreeSetIterator& rhs) const
+bool coursework::detail::AvlTreeSetIterator<T, S>::operator==(const AvlTreeSetIterator& rhs) const
 {
     return root_ == rhs.root_ && node_ == rhs.node_;
 }
 
 template <typename T, typename S>
-bool coursework::AvlTreeSetIterator<T, S>::operator!=(const AvlTreeSetIterator& rhs) const
+bool coursework::detail::AvlTreeSetIterator<T, S>::operator!=(const AvlTreeSetIterator& rhs) const
 {
     return !(*this == rhs);
 }

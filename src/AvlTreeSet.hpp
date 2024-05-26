@@ -16,9 +16,9 @@ namespace coursework
 
     public:
 
-        using Iterator = AvlTreeSetIterator<T>;
+        using Iterator = detail::AvlTreeSetIterator<T>;
         using ConstIterator = Iterator;
-        using ReverseIterator = AvlTreeSetIterator<T, detail::ReversedInfixTraverse<detail::AvlTreeSetNode<T>>>;
+        using ReverseIterator = detail::AvlTreeSetIterator<T, detail::ReversedInfixTraverse<detail::AvlTreeSetNode<T>>>;
         using ConstReverseIterator = ReverseIterator;
 
         AvlTreeSet();
