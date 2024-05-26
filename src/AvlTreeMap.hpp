@@ -17,10 +17,10 @@ namespace coursework
 
     public:
 
-        using Iterator = AvlTreeMapIterator<T, U>;
-        using ConstIterator = AvlTreeMapConstIterator<T, U, detail::StraightInfixTraverse<Node>>;
-        using ReverseIterator = AvlTreeMapIterator<T, U, detail::ReversedInfixTraverse<Node>>;
-        using ConstReverseIterator = AvlTreeMapConstIterator<T, U, detail::ReversedInfixTraverse<Node>>;
+        using Iterator = detail::AvlTreeMapIterator<T, U>;
+        using ConstIterator = detail::AvlTreeMapConstIterator<T, U, detail::StraightInfixTraverse<Node>>;
+        using ReverseIterator = detail::AvlTreeMapIterator<T, U, detail::ReversedInfixTraverse<Node>>;
+        using ConstReverseIterator = detail::AvlTreeMapConstIterator<T, U, detail::ReversedInfixTraverse<Node>>;
 
         AvlTreeMap();
         AvlTreeMap(const AvlTreeMap& rhs);
