@@ -184,24 +184,24 @@ int main()
     testSetRemove(set3, 14);
     testSetRemove(set3, 25);
 
-    // testSetInsert(set3, 17);
-    // testSetInsert(set3, 16);
-    // testSetInsert(set3, 15);
-    // testSetInsert(set3, 14);
-    // testSetInsert(set3, 13);
-    // testSetInsert(set3, 12);
-    // testSetInsert(set3, 11);
-    // testSetInsert(set3, 10);
+    testSetInsert(set3, 17);
+    testSetInsert(set3, 16);
+    testSetInsert(set3, 15);
+    testSetInsert(set3, 14);
+    testSetInsert(set3, 13);
+    testSetInsert(set3, 12);
+    testSetInsert(set3, 11);
+    testSetInsert(set3, 10);
 
-    // AvlTreeSet<int> set4;
-    //
-    // testSetInsert(set4, 15);
-    // testSetInsert(set4, 12);
-    // testSetInsert(set4, 20);
-    // testSetInsert(set4, 21);
-    // testSetInsert(set4, 18);
-    // testSetInsert(set4, 22);
-    // testSetInsert(set4, 19);
+    AvlTreeSet<int> set4;
+
+    testSetInsert(set4, 15);
+    testSetInsert(set4, 12);
+    testSetInsert(set4, 20);
+    testSetInsert(set4, 21);
+    testSetInsert(set4, 18);
+    testSetInsert(set4, 22);
+    testSetInsert(set4, 19);
 
     AvlTreeSet<int> set5;
 
