@@ -95,6 +95,11 @@ coursework::AvlTreeMap<T, U>::~AvlTreeMap() noexcept
 template <typename T, typename U>
 typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::begin()
 {
+    if (root_ == nullptr)
+    {
+        return end();
+    }
+
     Node* res = root_;
 
     while (res->left_ != nullptr)
@@ -114,6 +119,11 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::en
 template <typename T, typename U>
 typename coursework::AvlTreeMap<T, U>::ConstIterator coursework::AvlTreeMap<T, U>::cbegin() const
 {
+    if (root_ == nullptr)
+    {
+        return cend();
+    }
+
     Node* res = root_;
 
     while (res->left_ != nullptr)
@@ -145,6 +155,11 @@ typename coursework::AvlTreeMap<T, U>::ConstIterator coursework::AvlTreeMap<T, U
 template <typename T, typename U>
 typename coursework::AvlTreeMap<T, U>::ReverseIterator coursework::AvlTreeMap<T, U>::rbegin()
 {
+    if (root_ == nullptr)
+    {
+        return rend();
+    }
+
     Node* res = root_;
 
     while (res->right_ != nullptr)
@@ -164,6 +179,11 @@ typename coursework::AvlTreeMap<T, U>::ReverseIterator coursework::AvlTreeMap<T,
 template <typename T, typename U>
 typename coursework::AvlTreeMap<T, U>::ConstReverseIterator coursework::AvlTreeMap<T, U>::crbegin() const
 {
+    if (root_ == nullptr)
+    {
+        return crend();
+    }
+
     Node* res = root_;
 
     while (res->right_ != nullptr)
