@@ -24,9 +24,12 @@ namespace coursework
 
         ~EngRusDictionary() noexcept = default;
 
+        Dict::Iterator begin();
+        Dict::Iterator end();
+
         bool insert(std::string key, std::string value);
         const Subdict& search(const std::string& rhs);
-        bool remove(const std::string& rhs);
+        bool remove(const std::string& key, const std::string& value);
 
     private:
 

@@ -3,6 +3,7 @@
 
 #include "AvlTreeSetTests.hpp"
 #include "AvlTreeMapTests.hpp"
+#include "EngRusDictionaryTests.hpp"
 
 int main()
 {
@@ -116,6 +117,8 @@ int main()
 
     AvlTreeMap<std::string, int> map;
 
+    testMapOutput(map);
+
     std::string existing1 = "existing1";
 
     testMapInsert(map, existing1, 10);
@@ -146,80 +149,22 @@ int main()
     testMapRemove(map, std::string("русский текст"));
     testMapRemove(map, std::string("avl tree"));
 
-    /*
-    AvlTreeMap<std::string, int> map;
+    EngRusDictionary dict;
 
-    std::string existing2 = "existing2";
+    testDictInsert(dict, "good", "хороший");
+    testDictInsert(dict, "good", "хороший");
+    testDictInsert(dict, "good", "товар");
+    testDictInsert(dict, "good", "товар");
+    testDictInsert(dict, "bad", "плохой");
+    testDictInsert(dict, "bad", "плохой");
+    testDictInsert(dict, "direct", "направление");
+    testDictInsert(dict, "direct", "направление");
 
-    map.insert("dsd", 3);
-    map.insert("dadad", 16);
-    map.insert("super", -10);
-    map.insert("auto", 100);
-    map.insert("-----fwfeeauto", 2000);
-    map.insert("русский текст", 0);
-    map.insert("русский текст222", 123);
-    map.insert(std::move(existing2), 12345);
-
-    map.remove("dsd");
-    map.remove("русский текст222");
-
-    for (auto i = map.begin(); i != map.end(); ++i)
-    {
-        std::cout << i->first << " " << i->second << "\n";
-    }
-
-    for (auto i = map.cbegin(); i != map.cend(); ++i)
-    {
-        std::cout << i->first << " " << i->second << "\n";
-    }
-
-    for (auto& i : map)
-    {
-        std::cout << i.first << " " << i.second << "\n";
-    }
-
-    for (const auto& i : map)
-    {
-        std::cout << i.first << " " << i.second << "\n";
-    }
-
-    for (auto i = map.rbegin(); i != map.rend(); ++i)
-    {
-        std::cout << i->first << " " << i->second << "\n";
-    }
-
-    for (auto i = map.crbegin(); i != map.crend(); ++i)
-    {
-        std::cout << i->first << " " << i->second << "\n";
-    }
-
-    auto res = map.search("dsd");
-    std::cout << (res != map.end() ? res->second : 0) << "\n";
-
-    for (auto& i : map)
-    {
-        i.second = 4324;
-        std::cout << i.first << " " << i.second << "\n";
-    }
-
-    EngRusDictionary engrus;
-
-    std::cout << engrus.insert("good", "хорошо") << "\n";
-    std::cout << engrus.insert("good", "хороший") << "\n";
-    std::cout << engrus.insert("good", "товар") << "\n";
-
-    std::cout << engrus.insert("bad", "плохо") << "\n";
-    std::cout << engrus.insert("direct", "направление") << "\n";
-    std::cout << engrus.insert("direct", "направление") << "\n";
-
-    for (auto it = engrus.search("good").cbegin(); it != engrus.search("good").cend(); ++it)
-    {
-        std::cout << *it << "\n";
-    }
-
-    std::cout << engrus.remove("good") << "\n";
-    std::cout << engrus.remove("good") << "\n";
-    */
+    testDictRemove(dict, "good", "хороший");
+    testDictRemove(dict, "good", "хороший");
+    testDictRemove(dict, "direct", "направления");
+    testDictRemove(dict, "directs", "направление");
+    testDictRemove(dict, "direct", "направление");
 
     return 0;
 }
