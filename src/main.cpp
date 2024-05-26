@@ -5,6 +5,7 @@
 #include <string>
 
 #include "AvlTreeSetTests.hpp"
+#include "AvlTreeMapTests.hpp"
 
 int main()
 {
@@ -115,6 +116,33 @@ int main()
     testSetInsert(set5, 22);
     testSetInsert(set5, 23);
     testSetInsert(set5, 24);
+
+    AvlTreeMap<std::string, int> map;
+
+    std::string existing1 = "existing1";
+
+    testMapInsert(map, existing1, 10);
+
+    std::cout << existing1 << "\n";
+
+    std::string existing2 = "existing2";
+
+    testMapInsert(map, std::move(existing2), 14);
+
+    std::cout << existing2 << "\n";
+
+    testMapInsert(map, std::string("object"), 200);
+    testMapInsert(map, std::string("object"), 200);
+    testMapInsert(map, std::string("move"), 500);
+    testMapInsert(map, std::string("move"), 500);
+    testMapInsert(map, std::string("русский текст"), -12);
+    testMapInsert(map, std::string("русский текст"), -12);
+    testMapInsert(map, std::string("avl tree"), -50);
+    testMapInsert(map, std::string("avl tree"), -50);
+    testMapInsert(map, std::string("a"), 1);
+    testMapInsert(map, std::string("a"), 2);
+    testMapInsert(map, std::string("b"), 2);
+    testMapInsert(map, std::string("b"), 1);
 
     /*
     AvlTreeMap<std::string, int> map;
