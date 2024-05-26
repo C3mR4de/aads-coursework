@@ -2,7 +2,6 @@
 #define AVL_TREE_SET_NODE_HPP
 
 #include <utility>
-#include <algorithm>
 
 namespace coursework
 {
@@ -24,9 +23,10 @@ namespace coursework
                            AvlTreeSetNode* left = nullptr,
                            AvlTreeSetNode* right = nullptr);
 
-            // void fixFactor() noexcept;
-            AvlTreeSetNode<T>* rotateLeft(AvlTreeSetNode<T>*& root) noexcept;
-            AvlTreeSetNode<T>* rotateRight(AvlTreeSetNode<T>*& root) noexcept;
+            AvlTreeSetNode<T>* smallLeftRotate(AvlTreeSetNode<T>*& root) noexcept;
+            AvlTreeSetNode<T>* smallRightRotate(AvlTreeSetNode<T>*& root) noexcept;
+            AvlTreeSetNode<T>* bigLeftRotate(AvlTreeSetNode<T>*& root) noexcept;
+            AvlTreeSetNode<T>* bigRightRotate(AvlTreeSetNode<T>*& root) noexcept;
             AvlTreeSetNode<T>* balance(AvlTreeSetNode<T>*& root) noexcept;
         };
     }
@@ -44,18 +44,21 @@ coursework::detail::AvlTreeSetNode<T>::AvlTreeSetNode(T&& key,
     factor_(0)
 {}
 
-// template <typename T>
-// void coursework::detail::AvlTreeSetNode<T>::fixFactor() noexcept
-// {
-//     int factorLeft = left_ == nullptr ? 0 : left_->factor_;
-//     int factorRight = right_ == nullptr ? 0 : right_->factor_;
-//     factor_ = (factorLeft > factorRight ? factorLeft : factorRight) + 1;
-// }
-
 template <typename T>
-coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::rotateLeft(AvlTreeSetNode<T>*& root) noexcept
+coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::smallLeftRotate(AvlTreeSetNode<T>*& root) noexcept
 {
     AvlTreeSetNode<T>* pivot = right_;
+
+    if (pivot->factor_ == 1)
+    {
+        factor_ = 0;
+        pivot->factor_ = 0;
+    }
+    else if (pivot->factor_ == 0)
+    {
+        factor_ = 1;
+        pivot->factor_ = -1;
+    }
 
     right_ = pivot->left_;
 
@@ -77,16 +80,25 @@ coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::ro
 
     pivot->left_ = this;
     parent_ = pivot;
-    factor_ = factor_ + 1 - std::min(pivot->factor_, 0);
-    pivot->factor_ = pivot->factor_ + 1 - std::max(factor_, 0);
 
     return pivot;
 }
 
 template <typename T>
-coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::rotateRight(AvlTreeSetNode<T>*& root) noexcept
+coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::smallRightRotate(AvlTreeSetNode<T>*& root) noexcept
 {
     AvlTreeSetNode<T>* pivot = left_;
+
+    if (pivot->factor_ == -1)
+    {
+        factor_ = 0;
+        pivot->factor_ = 0;
+    }
+    else if (pivot->factor_ == 0)
+    {
+        factor_ = -1;
+        pivot->factor_ = 1;
+    }
 
     left_ = pivot->right_;
 
@@ -108,10 +120,22 @@ coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::ro
 
     pivot->right_ = this;
     parent_ = pivot;
-    factor_ = factor_ + 1 - std::min(pivot->factor_, 0);
-    pivot->factor_ = pivot->factor_ + 1 - std::max(factor_, 0);
 
     return pivot;
+}
+
+template <typename T>
+coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::bigLeftRotate(AvlTreeSetNode<T>*& root) noexcept
+{
+    right_->smallRightRotate(root);
+    return smallLeftRotate(root);
+}
+
+template <typename T>
+coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::bigRightRotate(AvlTreeSetNode<T>*& root) noexcept
+{
+    left_->smallLeftRotate(root);
+    return smallRightRotate(root);
 }
 
 template <typename T>
@@ -121,20 +145,24 @@ coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::ba
     {
         if (right_->factor_ < 0)
         {
-            right_ = right_->rotateRight(root);
+            return bigLeftRotate(root);
         }
-
-        return rotateLeft(root);
+        else
+        {
+            return smallLeftRotate(root);
+        }
     }
 
     if (factor_ == -2)
     {
         if (left_->factor_ > 0)
         {
-            left_ = left_->rotateLeft(root);
+            return bigRightRotate(root);
         }
-
-        return rotateRight(root);
+        else
+        {
+            return smallRightRotate(root);
+        }
     }
 
     return this;

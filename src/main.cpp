@@ -160,19 +160,19 @@ int main()
     testSetInsert(set3, 17);
 
     testSetRemove(set3, 17);
-    // testSetInsert(set3, 17);
-    //
-    // testSetRemove(set3, 17);
-    // testSetInsert(set3, 17);
-    //
-    // testSetRemove(set3, 17);
-    // testSetInsert(set3, 17);
-    //
-    // testSetRemove(set3, 17);
-    // testSetInsert(set3, 17);
-    //
-    // testSetRemove(set3, 17);
-    // testSetInsert(set3, 17);
+    testSetInsert(set3, 17);
+
+    testSetRemove(set3, 17);
+    testSetInsert(set3, 17);
+
+    testSetRemove(set3, 17);
+    testSetInsert(set3, 17);
+
+    testSetRemove(set3, 17);
+    testSetInsert(set3, 17);
+
+    testSetRemove(set3, 17);
+    testSetInsert(set3, 17);
 
     testSetRemove(set3, 15);
     testSetRemove(set3, 16);
@@ -184,14 +184,35 @@ int main()
     testSetRemove(set3, 14);
     testSetRemove(set3, 25);
 
-    testSetInsert(set3, 17);
-    testSetInsert(set3, 18);
-    testSetInsert(set3, 19);
-    testSetInsert(set3, 20);
-    testSetInsert(set3, 21);
-    testSetInsert(set3, 22);
-    testSetInsert(set3, 23);
-    testSetInsert(set3, 24);
+    // testSetInsert(set3, 17);
+    // testSetInsert(set3, 16);
+    // testSetInsert(set3, 15);
+    // testSetInsert(set3, 14);
+    // testSetInsert(set3, 13);
+    // testSetInsert(set3, 12);
+    // testSetInsert(set3, 11);
+    // testSetInsert(set3, 10);
+
+    // AvlTreeSet<int> set4;
+    //
+    // testSetInsert(set4, 15);
+    // testSetInsert(set4, 12);
+    // testSetInsert(set4, 20);
+    // testSetInsert(set4, 21);
+    // testSetInsert(set4, 18);
+    // testSetInsert(set4, 22);
+    // testSetInsert(set4, 19);
+
+    AvlTreeSet<int> set5;
+
+    testSetInsert(set5, 17);
+    testSetInsert(set5, 18);
+    testSetInsert(set5, 19);
+    testSetInsert(set5, 20);
+    testSetInsert(set5, 21);
+    testSetInsert(set5, 22);
+    testSetInsert(set5, 23);
+    testSetInsert(set5, 24);
     /*
     AvlTreeMap<std::string, int> map;
 
