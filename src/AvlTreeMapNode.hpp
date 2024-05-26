@@ -10,7 +10,7 @@ namespace coursework
         template <typename T, typename U>
         struct AvlTreeMapNode
         {
-            T key_;
+            const T key_;
             U value_;
 
             std::pair<const T&, U&> data_ = {key_, value_};
@@ -28,10 +28,9 @@ namespace coursework
                            AvlTreeMapNode* left = nullptr,
                            AvlTreeMapNode* right = nullptr);
 
-            void fixFactor() noexcept;
-            AvlTreeMapNode* rotateLeft() noexcept;
-            AvlTreeMapNode* rotateRight() noexcept;
-            AvlTreeMapNode* balance() noexcept;
+            AvlTreeMapNode* rotateLeft(AvlTreeMapNode*& root) noexcept;
+            AvlTreeMapNode* rotateRight(AvlTreeMapNode*& root) noexcept;
+            AvlTreeMapNode* balance(AvlTreeMapNode*& root) noexcept;
         };
     }
 }
@@ -42,8 +41,8 @@ coursework::detail::AvlTreeMapNode<T, U>::AvlTreeMapNode(T&& key,
                                                          AvlTreeMapNode* parent,
                                                          AvlTreeMapNode* left,
                                                          AvlTreeMapNode* right):
-    key_(std::forward<T>(key)),
-    value_(std::forward<U>(value)),
+    key_(std::move(key)),
+    value_(std::move(value)),
     parent_(parent),
     left_(left),
     right_(right),
@@ -51,74 +50,106 @@ coursework::detail::AvlTreeMapNode<T, U>::AvlTreeMapNode(T&& key,
 {}
 
 template <typename T, typename U>
-void coursework::detail::AvlTreeMapNode<T, U>::fixFactor() noexcept
+coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::rotateLeft(AvlTreeMapNode*& root) noexcept
 {
-    int factorLeft = left_ == nullptr ? factor_ - 1 : left_->factor_;
-    int factorRight = right_ == nullptr ? factor_ + 1 : right_->factor_;
-    factor_ = (factorLeft > factorRight ? factorLeft : factorRight) + 1;
-}
+    AvlTreeMapNode<T, U>* pivot = right_;
 
-template <typename T, typename U>
-coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::rotateLeft() noexcept
-{
-    if (this != nullptr && right_ != nullptr)
+    if (pivot->factor_ == 1)
     {
-        AvlTreeMapNode<T, U>* pivot = right_;
-
-        right_ = pivot->left_;
-        pivot->left_ = this;
-
-        fixFactor();
-        pivot->fixFactor();
-
-        return pivot;
+        factor_ = 0;
+        pivot->factor_ = 0;
+    }
+    else if (pivot->factor_ == 0)
+    {
+        factor_ = 1;
+        pivot->factor_ = -1;
     }
 
-    return this;
-}
+    right_ = pivot->left_;
 
-template <typename T, typename U>
-coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::rotateRight() noexcept
-{
-    if (this != nullptr && left_ != nullptr)
+    if (pivot->left_ != nullptr)
     {
-        AvlTreeMapNode<T, U>* pivot = left_;
-
-        left_ = pivot->right_;
-        pivot->right_ = this;
-
-        fixFactor();
-        pivot->fixFactor();
-
-        return pivot;
+        pivot->left_->parent_ = this;
     }
 
-    return this;
+    pivot->parent_ = parent_;
+
+    if (parent_ != nullptr)
+    {
+        (this == parent_->left_ ? parent_->left_ : parent_->right_) = pivot;
+    }
+    else
+    {
+        root = pivot;
+    }
+
+    pivot->left_ = this;
+    parent_ = pivot;
+
+    return pivot;
 }
 
 template <typename T, typename U>
-coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::balance() noexcept
+coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::rotateRight(AvlTreeMapNode*& root) noexcept
 {
-    fixFactor();
+    AvlTreeMapNode<T, U>* pivot = left_;
 
+    if (pivot->factor_ == -1)
+    {
+        factor_ = 0;
+        pivot->factor_ = 0;
+    }
+    else if (pivot->factor_ == 0)
+    {
+        factor_ = -1;
+        pivot->factor_ = 1;
+    }
+
+    left_ = pivot->right_;
+
+    if (pivot->right_ != nullptr)
+    {
+        pivot->right_->parent_ = this;
+    }
+
+    pivot->parent_ = parent_;
+
+    if (parent_ != nullptr)
+    {
+        (this == parent_->left_ ? parent_->left_ : parent_->right_) = pivot;
+    }
+    else
+    {
+        root = pivot;
+    }
+
+    pivot->right_ = this;
+    parent_ = pivot;
+
+    return pivot;
+}
+
+template <typename T, typename U>
+coursework::detail::AvlTreeMapNode<T, U>* coursework::detail::AvlTreeMapNode<T, U>::balance(AvlTreeMapNode*& root) noexcept
+{
     if (factor_ == 2)
     {
-        if (right_ == nullptr ? factor_ + 1 : right_->factor_ < 0)
+        if (right_->factor_ < 0)
         {
-            right_ = right_->rotateRight();
+            right_->rotateRight(root);
         }
 
-        return rotateLeft();
+        return rotateLeft(root);
     }
 
     if (factor_ == -2)
     {
-        if (left_ == nullptr ? factor_ - 1 : left_->factor_ > 0)
+        if (left_->factor_ > 0)
         {
-            left_ = left_->rotateLeft();
+            left_->rotateLeft(root);
         }
 
-        return rotateRight();
+        return rotateRight(root);
     }
 
     return this;

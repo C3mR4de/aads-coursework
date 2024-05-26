@@ -23,11 +23,11 @@ namespace coursework
                            AvlTreeSetNode* left = nullptr,
                            AvlTreeSetNode* right = nullptr);
 
-            AvlTreeSetNode<T>* smallLeftRotate(AvlTreeSetNode<T>*& root) noexcept;
-            AvlTreeSetNode<T>* smallRightRotate(AvlTreeSetNode<T>*& root) noexcept;
-            AvlTreeSetNode<T>* bigLeftRotate(AvlTreeSetNode<T>*& root) noexcept;
-            AvlTreeSetNode<T>* bigRightRotate(AvlTreeSetNode<T>*& root) noexcept;
-            AvlTreeSetNode<T>* balance(AvlTreeSetNode<T>*& root) noexcept;
+            AvlTreeSetNode* smallLeftRotate(AvlTreeSetNode*& root) noexcept;
+            AvlTreeSetNode* smallRightRotate(AvlTreeSetNode*& root) noexcept;
+            AvlTreeSetNode* bigLeftRotate(AvlTreeSetNode*& root) noexcept;
+            AvlTreeSetNode* bigRightRotate(AvlTreeSetNode*& root) noexcept;
+            AvlTreeSetNode* balance(AvlTreeSetNode*& root) noexcept;
         };
     }
 }

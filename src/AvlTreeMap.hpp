@@ -48,7 +48,7 @@ namespace coursework
         ConstReverseIterator rbegin() const;
         ConstReverseIterator rend() const;
 
-        Iterator insert(T&& key, U&& value);
+        Iterator insert(T key, U value);
         Iterator search(const T& key) const;
         Iterator remove(const T& key);
 
@@ -213,11 +213,11 @@ typename coursework::AvlTreeMap<T, U>::ConstReverseIterator coursework::AvlTreeM
 }
 
 template <typename T, typename U>
-typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::insert(T&& key, U&& value)
+typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::insert(T key, U value)
 {
     if (root_ == nullptr)
     {
-        root_ = new Node(std::forward<T>(key), std::forward<U>(value));
+        root_ = new Node(std::move(key), std::move(value));
         return begin();
     }
 
@@ -235,10 +235,33 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::in
         return end();
     }
 
-    curr = new Node(std::forward<T>(key), std::forward<U>(value), prev);
+    curr = new Node(std::move(key), std::move(value), prev);
     (curr->key_ < curr->parent_->key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
 
-    root_ = root_->balance();
+    bool isRebalanced = false;
+
+    Node* prevBack = curr;
+    Node* currBack = prev;
+
+    while (currBack != nullptr && !isRebalanced)
+    {
+        if (prevBack == currBack->left_)
+        {
+            --currBack->factor_;
+        }
+        else if (prevBack == currBack->right_)
+        {
+            ++currBack->factor_;
+        }
+
+        currBack = currBack->balance(root_);
+
+        isRebalanced = currBack->factor_ == 0;
+
+        prevBack = currBack;
+        currBack = currBack->parent_;
+    }
+
     return Iterator(root_, curr);
 }
 
@@ -270,7 +293,7 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::re
         return end();
     }
 
-    Node* res = curr->right_;
+    Node* res = detail::stepForward(root_, curr);
 
     if (curr->left_ == nullptr && curr->right_ == nullptr)
     {
@@ -297,6 +320,30 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::re
             currChild->parent_ = curr->parent_;
             (curr == curr->parent_->left_ ? curr->parent_->left_ : curr->parent_->right_) = currChild;
         }
+
+        bool isRebalanced = false;
+
+        Node* prevBack = currChild;
+        Node* currBack = prevBack->parent_;
+
+        while (currBack != nullptr && !isRebalanced)
+        {
+            if (prevBack == currBack->left_)
+            {
+                ++currBack->factor_;
+            }
+            else if (prevBack == currBack->right_)
+            {
+                --currBack->factor_;
+            }
+
+            currBack = currBack->balance(root_);
+
+            isRebalanced = std::abs(currBack->factor_) == 1;
+
+            prevBack = currBack;
+            currBack = currBack->parent_;
+        }
     }
     else
     {
@@ -311,6 +358,8 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::re
             curr = curr->left_;
         }
 
+        Node* prevBack = temp;
+
         const bool hasAnyChildren = prev != nullptr;
 
         (hasAnyChildren ? prev->left_ : temp->right_) = curr->right_;
@@ -320,11 +369,35 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::re
             curr->right_->parent_ = hasAnyChildren ? prev : temp;
         }
 
-        temp->key_ = curr->key_;
+        *const_cast<T*>(&temp->key_) = std::move(curr->key_);
+
+        bool isRebalanced = false;
+
+        Node* currBack = prevBack->parent_;
+
+        while (currBack != nullptr && !isRebalanced)
+        {
+            if (prevBack == currBack->left_)
+            {
+                ++currBack->factor_;
+            }
+            else if (prevBack == currBack->right_)
+            {
+                --currBack->factor_;
+            }
+
+            currBack = currBack->balance(root_);
+
+            isRebalanced = std::abs(currBack->factor_) == 1;
+
+            prevBack = currBack;
+            currBack = currBack->parent_;
+        }
+
+        res = temp;
     }
 
     delete curr;
-    root_ = root_->balance();
     return Iterator(root_, res);
 }
 
