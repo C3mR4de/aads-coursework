@@ -22,13 +22,13 @@ namespace coursework
         using ConstReverseIterator = ReverseIterator;
 
         AvlTreeSet();
-        AvlTreeSet(const AvlTreeSet&) = delete;
+        AvlTreeSet(const AvlTreeSet& rhs);
         AvlTreeSet(AvlTreeSet&& rhs) noexcept;
         AvlTreeSet(std::initializer_list<T> rhs);
         template <typename InputIterator>
         AvlTreeSet(InputIterator begin, InputIterator end);
 
-        AvlTreeSet& operator=(const AvlTreeSet&) = delete;
+        AvlTreeSet& operator=(const AvlTreeSet& rhs);
         AvlTreeSet& operator=(AvlTreeSet&& rhs) noexcept;
 
         virtual ~AvlTreeSet() noexcept;
@@ -62,10 +62,36 @@ coursework::AvlTreeSet<T>::AvlTreeSet():
 {}
 
 template <typename T>
+coursework::AvlTreeSet<T>::AvlTreeSet(const AvlTreeSet& rhs)
+{
+    AvlTreeSet<T> temp;
+
+    for (const auto& i : rhs)
+    {
+        temp.insert(i);
+    }
+
+    root_ = temp.root_;
+    temp.root_ = nullptr;
+}
+
+template <typename T>
 coursework::AvlTreeSet<T>::AvlTreeSet(AvlTreeSet&& rhs) noexcept:
     root_(rhs.root_)
 {
     rhs.root_ = nullptr;
+}
+
+template <typename T>
+coursework::AvlTreeSet<T>& coursework::AvlTreeSet<T>::operator=(const AvlTreeSet& rhs)
+{
+    if (this != &rhs)
+    {
+        AvlTreeSet<T> temp(rhs);
+        std::swap(root_, temp.root_);
+    }
+
+    return *this;
 }
 
 template <typename T>

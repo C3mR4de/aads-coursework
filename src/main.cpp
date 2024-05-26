@@ -29,6 +29,18 @@ int main()
     testSetInsert(set, 17);
     testSetInsert(set, 17);
 
+    AvlTreeSet<int> setCopy(set);
+
+    testSetInsert(setCopy, 50000);
+    testSetInsert(setCopy, 1000000);
+    testSetInsert(set, 30);
+
+    AvlTreeSet<int> setCopy2;
+    setCopy2 = setCopy;
+
+    testSetInsert(setCopy2, 123456789);
+    testSetInsert(setCopy, 987654321);
+
     AvlTreeSet<int> set2 = std::move(set);
 
     testSetRemove(set2, 15);
@@ -47,6 +59,8 @@ int main()
     testSetRemove(set2, 23);
     testSetRemove(set2, 14);
     testSetRemove(set2, 14);
+    testSetRemove(set2, 30);
+    testSetRemove(set2, 30);
 
     AvlTreeSet<int> set3;
     set3 = std::move(set2);
