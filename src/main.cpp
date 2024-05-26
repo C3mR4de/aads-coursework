@@ -4,10 +4,13 @@
 #include <iostream>
 #include <string>
 
+#include "AvlTreeSetTests.hpp"
+
 int main()
 {
     using namespace coursework;
 
+    /*
     AvlTreeSet<int> set;
 
     set.insert(3);
@@ -103,7 +106,93 @@ int main()
     }
 
     std::cout << "\n";
+    */
 
+    AvlTreeSet<int> set;
+
+    testSetOutput(set);
+    testSetInsert(set, 15);
+    testSetInsert(set, 15);
+    testSetInsert(set, 23);
+    testSetInsert(set, 23);
+    testSetInsert(set, 13);
+    testSetInsert(set, 13);
+    testSetInsert(set, 14);
+    testSetInsert(set, 14);
+    testSetInsert(set, 25);
+    testSetInsert(set, 25);
+    testSetInsert(set, 18);
+    testSetInsert(set, 18);
+    testSetInsert(set, 16);
+    testSetInsert(set, 16);
+    testSetInsert(set, 17);
+    testSetInsert(set, 17);
+
+    AvlTreeSet<int> set2 = std::move(set);
+
+    testSetRemove(set2, 15);
+    testSetRemove(set2, 15);
+    testSetRemove(set2, 13);
+    testSetRemove(set2, 13);
+    testSetRemove(set2, 25);
+    testSetRemove(set2, 25);
+    testSetRemove(set2, 18);
+    testSetRemove(set2, 18);
+    testSetRemove(set2, 16);
+    testSetRemove(set2, 16);
+    testSetRemove(set2, 17);
+    testSetRemove(set2, 17);
+    testSetRemove(set2, 23);
+    testSetRemove(set2, 23);
+    testSetRemove(set2, 14);
+    testSetRemove(set2, 14);
+
+    AvlTreeSet<int> set3;
+    set3 = std::move(set2);
+
+    testSetInsert(set3, 15);
+    testSetInsert(set3, 23);
+    testSetInsert(set3, 13);
+    testSetInsert(set3, 14);
+    testSetInsert(set3, 25);
+    testSetInsert(set3, 18);
+    testSetInsert(set3, 16);
+    testSetInsert(set3, 17);
+
+    testSetRemove(set3, 17);
+    // testSetInsert(set3, 17);
+    //
+    // testSetRemove(set3, 17);
+    // testSetInsert(set3, 17);
+    //
+    // testSetRemove(set3, 17);
+    // testSetInsert(set3, 17);
+    //
+    // testSetRemove(set3, 17);
+    // testSetInsert(set3, 17);
+    //
+    // testSetRemove(set3, 17);
+    // testSetInsert(set3, 17);
+
+    testSetRemove(set3, 15);
+    testSetRemove(set3, 16);
+    testSetRemove(set3, 17);
+    testSetRemove(set3, 18);
+    testSetRemove(set3, 23);
+    testSetRemove(set3, 25);
+    testSetRemove(set3, 13);
+    testSetRemove(set3, 14);
+    testSetRemove(set3, 25);
+
+    testSetInsert(set3, 17);
+    testSetInsert(set3, 18);
+    testSetInsert(set3, 19);
+    testSetInsert(set3, 20);
+    testSetInsert(set3, 21);
+    testSetInsert(set3, 22);
+    testSetInsert(set3, 23);
+    testSetInsert(set3, 24);
+    /*
     AvlTreeMap<std::string, int> map;
 
     std::string existing2 = "existing2";
@@ -176,6 +265,7 @@ int main()
 
     std::cout << engrus.remove("good") << "\n";
     std::cout << engrus.remove("good") << "\n";
+    */
 
     return 0;
 }

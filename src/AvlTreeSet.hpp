@@ -47,6 +47,8 @@ namespace coursework
         Iterator search(const T& rhs) const;
         Iterator remove(const T& rhs);
 
+        const Node* getRoot() const;
+
     private:
 
         void clear(Node* rhs);
@@ -88,6 +90,11 @@ coursework::AvlTreeSet<T>::~AvlTreeSet() noexcept
 template <typename T>
 typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::begin() const
 {
+    if (root_ == nullptr)
+    {
+        return end();
+    }
+
     Node* res = root_;
 
     while (res->left_ != nullptr)
@@ -119,6 +126,11 @@ typename coursework::AvlTreeSet<T>::ConstIterator coursework::AvlTreeSet<T>::cen
 template <typename T>
 typename coursework::AvlTreeSet<T>::ReverseIterator coursework::AvlTreeSet<T>::rbegin() const
 {
+    if (root_ == nullptr)
+    {
+        return rend();
+    }
+
     Node* res = root_;
 
     while (res->right_ != nullptr)
@@ -173,7 +185,23 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::insert(T
     curr = new Node(std::move(rhs), prev);
     (curr->key_ < curr->parent_->key_ ? curr->parent_->left_ : curr->parent_->right_) = curr;
 
-    root_ = root_->balance();
+    bool isRebalanced = false;
+
+    for (Node* i = curr; i->parent_ != nullptr && !isRebalanced; i = i->parent_)
+    {
+        if (i == i->parent_->left_)
+        {
+            --(i->parent_->factor_);
+        }
+        else if (i == i->parent_->right_)
+        {
+            ++(i->parent_->factor_);
+        }
+
+        i->parent_ = i->parent_->balance(root_);
+        isRebalanced = i->parent_->factor_ == 0;
+    }
+
     return Iterator(root_, curr);
 }
 
@@ -205,8 +233,6 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
         return end();
     }
 
-    Node* res = curr->right_;
-
     if (curr->left_ == nullptr && curr->right_ == nullptr)
     {
         if (curr != root_)
@@ -217,8 +243,13 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
         {
             root_ = nullptr;
         }
+
+        Node* res = curr->parent_;
+        delete curr;
+        return Iterator(root_, res);
     }
-    else if (curr->left_ == nullptr || curr->right_ == nullptr)
+
+    if (curr->left_ == nullptr || curr->right_ == nullptr)
     {
         Node* const currChild = curr->left_ != nullptr ? curr->left_ : curr->right_;
 
@@ -232,9 +263,64 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
             currChild->parent_ = curr->parent_;
             (curr == curr->parent_->left_ ? curr->parent_->left_ : curr->parent_->right_) = currChild;
         }
+
+        delete curr;
+
+        bool isRebalanced = false;
+
+        for (Node* i = currChild; i->parent_ != nullptr && !isRebalanced; i = i->parent_)
+        {
+            if (i == i->parent_->left_)
+            {
+                ++(i->parent_->factor_);
+            }
+            else if (i == i->parent_->right_)
+            {
+                --(i->parent_->factor_);
+            }
+
+            i->parent_ = i->parent_->balance(root_);
+            isRebalanced = std::abs(i->parent_->factor_) == 1;
+        }
+
+        return Iterator(root_, currChild);
     }
     else
     {
+        /*
+        Node* temp = curr;
+
+        temp = temp->right_;
+
+        while (temp->left_ != nullptr)
+        {
+            temp = temp->left_;
+        }
+
+        if (temp->right_ == nullptr)
+        {
+            temp->parent_->left_ = nullptr;
+        }
+        else
+        {
+            temp->parent_->left_ = temp->right_;
+            temp->right_->parent_ = temp->parent_;
+        }
+
+        temp->parent_ = curr->parent_;
+
+        if (curr != root_)
+        {
+            (curr == curr->parent_->left_ ? curr->parent_->left_ : curr->parent_->right_) = temp;
+        }
+
+        temp->left_ = curr->left_;
+        curr->left_->parent_ = temp;
+
+        temp->right_ = curr->right_;
+        curr->right_->parent_ = temp;
+        */
+
         Node* prev = nullptr;
         Node* const temp = curr;
 
@@ -256,11 +342,54 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
         }
 
         *const_cast<T*>(&temp->key_) = std::move(curr->key_);
+
+        bool isRebalanced = false;
+
+        for (Node* i = temp; i->parent_ != nullptr && !isRebalanced; i = i->parent_)
+        {
+            if (i == i->parent_->left_)
+            {
+                ++(i->parent_->factor_);
+            }
+            else if (i == i->parent_->right_)
+            {
+                --(i->parent_->factor_);
+            }
+
+            i->parent_ = i->parent_->balance(root_);
+            isRebalanced = std::abs(i->parent_->factor_) == 1;
+        }
+
+        return Iterator(root_, temp);
     }
 
-    delete curr;
-    root_ = root_->balance();
-    return Iterator(root_, res);
+    // delete curr;
+    //
+    // if (root_ != nullptr)
+    // {
+    //     bool isRebalanced = false;
+    //
+    //     for (Node* i = curr; i->parent_ != nullptr && !isRebalanced; i = i->parent_)
+    //     {
+    //         if (i == i->parent_->left_)
+    //         {
+    //             --(i->parent_->factor_);
+    //         }
+    //         else if (i == i->parent_->right_)
+    //         {
+    //             ++(i->parent_->factor_);
+    //         }
+    //
+    //         i->parent_ = i->parent_->balance(root_);
+    //         isRebalanced = i->parent_->factor_ == 0;
+    //     }
+    // }
+}
+
+template <typename T>
+const typename coursework::AvlTreeSet<T>::Node* coursework::AvlTreeSet<T>::getRoot() const
+{
+    return root_;
 }
 
 template <typename T>
