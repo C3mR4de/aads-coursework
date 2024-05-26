@@ -76,6 +76,20 @@ coursework::AvlTreeSet<T>::AvlTreeSet(const AvlTreeSet& rhs)
 }
 
 template <typename T>
+coursework::AvlTreeSet<T>::AvlTreeSet(std::initializer_list<T> rhs)
+{
+    AvlTreeSet<T> temp;
+
+    for (const auto& i : rhs)
+    {
+        temp.insert(i);
+    }
+
+    root_ = temp.root_;
+    temp.root_ = nullptr;
+}
+
+template <typename T>
 coursework::AvlTreeSet<T>::AvlTreeSet(AvlTreeSet&& rhs) noexcept:
     root_(rhs.root_)
 {

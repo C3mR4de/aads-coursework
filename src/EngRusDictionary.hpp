@@ -16,11 +16,11 @@ namespace coursework
 
         EngRusDictionary() = default;
 
-        EngRusDictionary(const EngRusDictionary&) = delete;
-        EngRusDictionary(EngRusDictionary&& rhs) noexcept = default;
+        EngRusDictionary(const EngRusDictionary&) = default;
+        EngRusDictionary(EngRusDictionary&&) noexcept = default;
 
-        EngRusDictionary& operator=(const EngRusDictionary&) = delete;
-        EngRusDictionary& operator=(EngRusDictionary&& rhs) noexcept = default;
+        EngRusDictionary& operator=(const EngRusDictionary&) = default;
+        EngRusDictionary& operator=(EngRusDictionary&&) noexcept = default;
 
         ~EngRusDictionary() noexcept = default;
 

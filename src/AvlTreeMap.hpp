@@ -25,7 +25,7 @@ namespace coursework
         AvlTreeMap();
         AvlTreeMap(const AvlTreeMap& rhs);
         AvlTreeMap(AvlTreeMap&& rhs) noexcept;
-        AvlTreeMap(std::initializer_list<T> rhs);
+        AvlTreeMap(std::initializer_list<std::pair<T, U>> rhs);
         template <typename InputIterator>
         AvlTreeMap(InputIterator begin, InputIterator end);
 
@@ -68,6 +68,20 @@ coursework::AvlTreeMap<T, U>::AvlTreeMap():
 
 template <typename T, typename U>
 coursework::AvlTreeMap<T, U>::AvlTreeMap(const AvlTreeMap& rhs)
+{
+    AvlTreeMap<T, U> temp;
+
+    for (const auto& i : rhs)
+    {
+        temp.insert(i.first, i.second);
+    }
+
+    root_ = temp.root_;
+    temp.root_ = nullptr;
+}
+
+template <typename T, typename U>
+coursework::AvlTreeMap<T, U>::AvlTreeMap(std::initializer_list<std::pair<T, U>> rhs)
 {
     AvlTreeMap<T, U> temp;
 

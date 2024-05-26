@@ -129,6 +129,9 @@ int main()
     testSetInsert(set5, 23);
     testSetInsert(set5, 24);
 
+    AvlTreeSet<int> setInit = {7, 2, 9, 10, 28, 65, 37};
+    testSetOutput(setInit);
+
     AvlTreeMap<std::string, int> map;
 
     testMapOutput(map);
@@ -175,6 +178,9 @@ int main()
     mapCopy2 = map3;
     testMapInsert(mapCopy2, std::string("xRAPAPAPAPAPAPAP"), -9999999);
 
+    AvlTreeMap<int, int> mapInit = {{2, 3}, {4, 2}, {13, 0}};
+    testMapOutput(mapInit);
+
     EngRusDictionary dict;
 
     testDictInsert(dict, "good", "хороший");
@@ -183,14 +189,27 @@ int main()
     testDictInsert(dict, "good", "товар");
     testDictInsert(dict, "bad", "плохой");
     testDictInsert(dict, "bad", "плохой");
-    testDictInsert(dict, "direct", "направление");
-    testDictInsert(dict, "direct", "направление");
 
-    testDictRemove(dict, "good", "хороший");
-    testDictRemove(dict, "good", "хороший");
-    testDictRemove(dict, "direct", "направления");
-    testDictRemove(dict, "directs", "направление");
-    testDictRemove(dict, "direct", "направление");
+    EngRusDictionary dict2 = std::move(dict);
+
+    testDictInsert(dict2, "direct", "направление");
+    testDictInsert(dict2, "direct", "направление");
+
+    testDictRemove(dict2, "good", "хороший");
+    testDictRemove(dict2, "good", "хороший");
+
+    EngRusDictionary dict3;
+    dict3 = std::move(dict2);
+
+    testDictRemove(dict3, "direct", "направления");
+    testDictRemove(dict3, "directs", "направление");
+    testDictRemove(dict3, "direct", "направление");
+
+    EngRusDictionary dictCopy = dict3;
+    testDictInsert(dictCopy, "cloud", "облако");
+
+    EngRusDictionary dictCopy2 = dict3;
+    testDictInsert(dictCopy2, "loud", "громкий");
 
     return 0;
 }
