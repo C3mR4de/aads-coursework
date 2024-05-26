@@ -10,104 +10,6 @@ int main()
 {
     using namespace coursework;
 
-    /*
-    AvlTreeSet<int> set;
-
-    set.insert(3);
-    set.insert(5);
-    set.insert(20);
-    set.insert(10);
-    set.insert(-100);
-    set.insert(-1000);
-
-    set.remove(-1000);
-    set.remove(20);
-    set.remove(5);
-
-    for (auto i = set.begin(); i != set.end(); ++i)
-    {
-        std::cout << *i << "\n";
-    }
-
-    std::cout << "\n";
-
-    for (auto i = set.cbegin(); i != set.cend(); ++i)
-    {
-        std::cout << *i << "\n";
-    }
-
-    std::cout << "\n";
-
-    for (auto i = set.rbegin(); i != set.rend(); ++i)
-    {
-        std::cout << *i << "\n";
-    }
-
-    std::cout << "\n";
-
-    for (auto i = set.crbegin(); i != set.crend(); ++i)
-    {
-        std::cout << *i << "\n";
-    }
-
-    std::cout << "\n";
-
-    for (const auto& i : set)
-    {
-        std::cout << i << "\n";
-    }
-
-    std::cout << "\n";
-
-    for (auto& i : set)
-    {
-        std::cout << i << "\n";
-    }
-
-    std::cout << "\n";
-
-    AvlTreeSet<std::string> setstr;
-
-    std::string existing = "existing";
-
-    setstr.insert("ferg");
-    setstr.insert("rapapa");
-    setstr.insert("parampampam");
-    setstr.insert("aramzamzam");
-    setstr.insert(std::move(existing));
-
-    setstr.remove("aramzamzam");
-    setstr.remove("parampampam");
-
-    for (auto i = setstr.begin(); i != setstr.end(); ++i)
-    {
-        std::cout << *i << "\n";
-    }
-
-    std::cout << "\n";
-
-    for (auto i = setstr.rbegin(); i != setstr.rend(); ++i)
-    {
-        std::cout << *i << "\n";
-    }
-
-    std::cout << "\n";
-
-    for (const auto& i : setstr)
-    {
-        std::cout << i << "\n";
-    }
-
-    std::cout << "\n";
-
-    for (auto& i : setstr)
-    {
-        std::cout << i << "\n";
-    }
-
-    std::cout << "\n";
-    */
-
     AvlTreeSet<int> set;
 
     testSetOutput(set);
@@ -213,6 +115,7 @@ int main()
     testSetInsert(set5, 22);
     testSetInsert(set5, 23);
     testSetInsert(set5, 24);
+
     /*
     AvlTreeMap<std::string, int> map;
 
