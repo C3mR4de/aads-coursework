@@ -257,7 +257,7 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
         return end();
     }
 
-    Node* res = nullptr;
+    Node* res = detail::stepForward(root_, curr);
 
     if (curr->left_ == nullptr && curr->right_ == nullptr)
     {
@@ -269,8 +269,6 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
         {
             root_ = nullptr;
         }
-
-        res = curr->parent_;
     }
     else if (curr->left_ == nullptr || curr->right_ == nullptr)
     {
@@ -310,8 +308,6 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
             prevBack = currBack;
             currBack = currBack->parent_;
         }
-
-        res = currChild;
 
         /*
         bool isRebalanced = false;
@@ -379,6 +375,8 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
             curr = curr->left_;
         }
 
+        Node* prevBack = temp;
+
         const bool hasAnyChildren = prev != nullptr;
 
         (hasAnyChildren ? prev->left_ : temp->right_) = curr->right_;
@@ -392,7 +390,6 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
 
         bool isRebalanced = false;
 
-        Node* prevBack = curr->parent_;
         Node* currBack = prevBack->parent_;
 
         while (currBack != nullptr && !isRebalanced)
@@ -413,6 +410,8 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
             prevBack = currBack;
             currBack = currBack->parent_;
         }
+
+        res = temp;
 
         /*
         bool isRebalanced = false;
@@ -438,7 +437,6 @@ typename coursework::AvlTreeSet<T>::Iterator coursework::AvlTreeSet<T>::remove(c
             isRebalanced = std::abs(i->parent_->factor_) == 1;
         }
         */
-        res = temp;
     }
 
     delete curr;
