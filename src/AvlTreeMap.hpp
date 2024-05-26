@@ -23,13 +23,13 @@ namespace coursework
         using ConstReverseIterator = AvlTreeMapConstIterator<T, U, detail::ReversedInfixTraverse<Node>>;
 
         AvlTreeMap();
-        AvlTreeMap(const AvlTreeMap&) = delete;
+        AvlTreeMap(const AvlTreeMap& rhs);
         AvlTreeMap(AvlTreeMap&& rhs) noexcept;
         AvlTreeMap(std::initializer_list<T> rhs);
         template <typename InputIterator>
         AvlTreeMap(InputIterator begin, InputIterator end);
 
-        AvlTreeMap& operator=(const AvlTreeMap&) = delete;
+        AvlTreeMap& operator=(const AvlTreeMap& rhs);
         AvlTreeMap& operator=(AvlTreeMap&& rhs) noexcept;
 
         virtual ~AvlTreeMap() noexcept;
@@ -65,6 +65,32 @@ template <typename T, typename U>
 coursework::AvlTreeMap<T, U>::AvlTreeMap():
     root_(nullptr)
 {}
+
+template <typename T, typename U>
+coursework::AvlTreeMap<T, U>::AvlTreeMap(const AvlTreeMap& rhs)
+{
+    AvlTreeMap<T, U> temp;
+
+    for (const auto& i : rhs)
+    {
+        temp.insert(i.first, i.second);
+    }
+
+    root_ = temp.root_;
+    temp.root_ = nullptr;
+}
+
+template <typename T, typename U>
+coursework::AvlTreeMap<T, U>& coursework::AvlTreeMap<T, U>::operator=(const AvlTreeMap& rhs)
+{
+    if (this != &rhs)
+    {
+        AvlTreeMap<T, U> temp(rhs);
+        std::swap(root_, temp.root_);
+    }
+
+    return *this;
+}
 
 template <typename T, typename U>
 coursework::AvlTreeMap<T, U>::AvlTreeMap(AvlTreeMap&& rhs) noexcept:

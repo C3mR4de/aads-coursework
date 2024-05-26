@@ -29,7 +29,7 @@ int main()
     testSetInsert(set, 17);
     testSetInsert(set, 17);
 
-    AvlTreeSet<int> setCopy(set);
+    AvlTreeSet<int> setCopy = set;
 
     testSetInsert(setCopy, 50000);
     testSetInsert(setCopy, 1000000);
@@ -145,23 +145,35 @@ int main()
 
     std::cout << existing2 << "\n";
 
-    testMapInsert(map, std::string("object"), 200);
-    testMapInsert(map, std::string("object"), 200);
-    testMapInsert(map, std::string("move"), 500);
-    testMapInsert(map, std::string("move"), 500);
-    testMapInsert(map, std::string("русский текст"), -12);
-    testMapInsert(map, std::string("русский текст"), -12);
-    testMapInsert(map, std::string("avl tree"), -50);
-    testMapInsert(map, std::string("avl tree"), -50);
-    testMapInsert(map, std::string("a"), 1);
-    testMapInsert(map, std::string("a"), 2);
-    testMapInsert(map, std::string("b"), 2);
-    testMapInsert(map, std::string("b"), 1);
+    AvlTreeMap<std::string, int> map2 = std::move(map);
 
-    testMapRemove(map, std::string("b"));
-    testMapRemove(map, std::string("move"));
-    testMapRemove(map, std::string("русский текст"));
-    testMapRemove(map, std::string("avl tree"));
+    testMapInsert(map2, std::string("object"), 200);
+    testMapInsert(map2, std::string("object"), 200);
+    testMapInsert(map2, std::string("move"), 500);
+    testMapInsert(map2, std::string("move"), 500);
+    testMapInsert(map2, std::string("русский текст"), -12);
+    testMapInsert(map2, std::string("русский текст"), -12);
+    testMapInsert(map2, std::string("avl tree"), -50);
+    testMapInsert(map2, std::string("avl tree"), -50);
+    testMapInsert(map2, std::string("a"), 1);
+    testMapInsert(map2, std::string("a"), 2);
+    testMapInsert(map2, std::string("b"), 2);
+    testMapInsert(map2, std::string("b"), 1);
+
+    AvlTreeMap<std::string, int> map3;
+    map3 = std::move(map2);
+
+    testMapRemove(map3, std::string("b"));
+    testMapRemove(map3, std::string("move"));
+    testMapRemove(map3, std::string("русский текст"));
+    testMapRemove(map3, std::string("avl tree"));
+
+    AvlTreeMap<std::string, int> mapCopy = map3;
+    testMapInsert(mapCopy, std::string("xLALALALALALALA"), 10000000);
+
+    AvlTreeMap<std::string, int> mapCopy2;
+    mapCopy2 = map3;
+    testMapInsert(mapCopy2, std::string("xRAPAPAPAPAPAPAP"), -9999999);
 
     EngRusDictionary dict;
 
