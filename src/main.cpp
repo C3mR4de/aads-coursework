@@ -1,8 +1,5 @@
-#include "AvlTreeSet.hpp"
-#include "AvlTreeMap.hpp"
 #include "EngRusDictionary.hpp"
 #include <iostream>
-#include <string>
 
 #include "AvlTreeSetTests.hpp"
 #include "AvlTreeMapTests.hpp"
@@ -143,6 +140,11 @@ int main()
     testMapInsert(map, std::string("a"), 2);
     testMapInsert(map, std::string("b"), 2);
     testMapInsert(map, std::string("b"), 1);
+
+    testMapRemove(map, std::string("b"));
+    testMapRemove(map, std::string("move"));
+    testMapRemove(map, std::string("русский текст"));
+    testMapRemove(map, std::string("avl tree"));
 
     /*
     AvlTreeMap<std::string, int> map;

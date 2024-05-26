@@ -52,9 +52,9 @@ namespace coursework
     }
 
     template <typename T, typename U>
-    void testMapRemove(AvlTreeMap<T, U>& tree, T key, U value)
+    void testMapRemove(AvlTreeMap<T, U>& tree, T key)
     {
-        tree.remove(std::move(key), std::move(value));
+        tree.remove(std::move(key));
         testMapOutput(tree);
         std::cout << checkBalance(tree.getRoot()) << "\n";
     }
