@@ -52,6 +52,8 @@ namespace coursework
         Iterator search(const T& key) const;
         Iterator remove(const T& key);
 
+        const Node* getRoot() const;
+
     private:
 
         void clear(Node* rhs);
@@ -304,6 +306,12 @@ typename coursework::AvlTreeMap<T, U>::Iterator coursework::AvlTreeMap<T, U>::re
     delete curr;
     root_ = root_->balance();
     return Iterator(root_, res);
+}
+
+template <typename T, typename U>
+const typename coursework::AvlTreeMap<T, U>::Node* coursework::AvlTreeMap<T, U>::getRoot() const
+{
+    return root_;
 }
 
 template <typename T, typename U>
