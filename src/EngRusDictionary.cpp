@@ -12,6 +12,16 @@ coursework::EngRusDictionary::Dict::Iterator coursework::EngRusDictionary::end()
     return dict_.end();
 }
 
+coursework::EngRusDictionary::Dict::ConstIterator coursework::EngRusDictionary::cbegin() const
+{
+    return dict_.cbegin();
+}
+
+coursework::EngRusDictionary::Dict::ConstIterator coursework::EngRusDictionary::cend() const
+{
+    return dict_.cend();
+}
+
 bool coursework::EngRusDictionary::insert(std::string key, std::string value)
 {
     auto it = dict_.search(key);
@@ -25,7 +35,7 @@ bool coursework::EngRusDictionary::insert(std::string key, std::string value)
     return it->second.insert(std::forward<std::string>(value)) != it->second.end();
 }
 
-const coursework::EngRusDictionary::Subdict& coursework::EngRusDictionary::search(const std::string& rhs)
+const coursework::EngRusDictionary::Subdict& coursework::EngRusDictionary::search(const std::string& rhs) const
 {
     return dict_.search(rhs)->second;
 }

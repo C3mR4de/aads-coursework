@@ -26,9 +26,11 @@ namespace coursework
 
         Dict::Iterator begin();
         Dict::Iterator end();
+        Dict::ConstIterator cbegin() const;
+        Dict::ConstIterator cend() const;
 
         bool insert(std::string key, std::string value);
-        const Subdict& search(const std::string& rhs);
+        const Subdict& search(const std::string& rhs) const;
         bool remove(const std::string& key, const std::string& value);
 
     private:
