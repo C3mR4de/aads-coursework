@@ -67,7 +67,8 @@ coursework::AvlTreeMap<T, U>::AvlTreeMap():
 {}
 
 template <typename T, typename U>
-coursework::AvlTreeMap<T, U>::AvlTreeMap(const AvlTreeMap& rhs)
+coursework::AvlTreeMap<T, U>::AvlTreeMap(const AvlTreeMap& rhs):
+    root_(nullptr)
 {
     AvlTreeMap<T, U> temp;
 
@@ -76,8 +77,7 @@ coursework::AvlTreeMap<T, U>::AvlTreeMap(const AvlTreeMap& rhs)
         temp.insert(i.first, i.second);
     }
 
-    root_ = temp.root_;
-    temp.root_ = nullptr;
+    std::swap(root_, temp.root_);
 }
 
 template <typename T, typename U>

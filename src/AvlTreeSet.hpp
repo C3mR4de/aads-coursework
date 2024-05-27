@@ -62,7 +62,8 @@ coursework::AvlTreeSet<T>::AvlTreeSet():
 {}
 
 template <typename T>
-coursework::AvlTreeSet<T>::AvlTreeSet(const AvlTreeSet& rhs)
+coursework::AvlTreeSet<T>::AvlTreeSet(const AvlTreeSet& rhs):
+    root_(nullptr)
 {
     AvlTreeSet<T> temp;
 
@@ -71,8 +72,7 @@ coursework::AvlTreeSet<T>::AvlTreeSet(const AvlTreeSet& rhs)
         temp.insert(i);
     }
 
-    root_ = temp.root_;
-    temp.root_ = nullptr;
+    std::swap(root_, temp.root_);
 }
 
 template <typename T>
