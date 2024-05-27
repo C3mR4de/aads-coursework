@@ -23,10 +23,8 @@ namespace coursework
                            AvlTreeSetNode* left = nullptr,
                            AvlTreeSetNode* right = nullptr);
 
-            AvlTreeSetNode* smallLeftRotate(AvlTreeSetNode*& root) noexcept;
-            AvlTreeSetNode* smallRightRotate(AvlTreeSetNode*& root) noexcept;
-            AvlTreeSetNode* bigLeftRotate(AvlTreeSetNode*& root) noexcept;
-            AvlTreeSetNode* bigRightRotate(AvlTreeSetNode*& root) noexcept;
+            AvlTreeSetNode* rotateLeft(AvlTreeSetNode*& root) noexcept;
+            AvlTreeSetNode* rotateRight(AvlTreeSetNode*& root) noexcept;
             AvlTreeSetNode* balance(AvlTreeSetNode*& root) noexcept;
         };
     }
@@ -45,7 +43,7 @@ coursework::detail::AvlTreeSetNode<T>::AvlTreeSetNode(T&& key,
 {}
 
 template <typename T>
-coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::smallLeftRotate(AvlTreeSetNode<T>*& root) noexcept
+coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::rotateLeft(AvlTreeSetNode<T>*& root) noexcept
 {
     AvlTreeSetNode<T>* pivot = right_;
 
@@ -85,7 +83,7 @@ coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::sm
 }
 
 template <typename T>
-coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::smallRightRotate(AvlTreeSetNode<T>*& root) noexcept
+coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::rotateRight(AvlTreeSetNode<T>*& root) noexcept
 {
     AvlTreeSetNode<T>* pivot = left_;
 
@@ -125,44 +123,26 @@ coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::sm
 }
 
 template <typename T>
-coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::bigLeftRotate(AvlTreeSetNode<T>*& root) noexcept
-{
-    right_->smallRightRotate(root);
-    return smallLeftRotate(root);
-}
-
-template <typename T>
-coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::bigRightRotate(AvlTreeSetNode<T>*& root) noexcept
-{
-    left_->smallLeftRotate(root);
-    return smallRightRotate(root);
-}
-
-template <typename T>
 coursework::detail::AvlTreeSetNode<T>* coursework::detail::AvlTreeSetNode<T>::balance(AvlTreeSetNode<T>*& root) noexcept
 {
     if (factor_ == 2)
     {
         if (right_->factor_ < 0)
         {
-            return bigLeftRotate(root);
+            right_->rotateRight(root);
         }
-        else
-        {
-            return smallLeftRotate(root);
-        }
+
+        return rotateLeft(root);
     }
 
     if (factor_ == -2)
     {
         if (left_->factor_ > 0)
         {
-            return bigRightRotate(root);
+            left_->rotateLeft(root);
         }
-        else
-        {
-            return smallRightRotate(root);
-        }
+
+        return rotateRight(root);
     }
 
     return this;
